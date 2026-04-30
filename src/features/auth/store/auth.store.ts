@@ -38,6 +38,7 @@ export const useAuthStore = create<AuthState>((set) => ({
                 error: error.response?.data?.message || 'Error al iniciar sesión',
                 isLoading: false,
             });
+            throw error;
         }
     },
     register: async (data) => {
@@ -63,6 +64,7 @@ export const useAuthStore = create<AuthState>((set) => ({
                 error: error.response?.data?.message || 'Error al registrarse',
                 isLoading: false,
             });
+            throw error;
         }
     },
     logout: () => {

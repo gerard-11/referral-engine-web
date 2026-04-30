@@ -23,12 +23,9 @@ export const RegisterPage = () => {
     
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        try {
             await register(form);
             navigate('/profile');
-        } catch (err) {
-            console.error("Error capturado en el componente:", err);
-        }
+
     };
 console.log(user)
     return (

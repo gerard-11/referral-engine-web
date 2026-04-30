@@ -20,9 +20,16 @@ export const LoginPage = () => {
     };
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
-        e.preventDefault();
-        await login(form);
-        navigate('/profile')
+        e.preventDefault()
+        try{
+            await login(form);
+            navigate('/profile')
+        }catch{
+            setForm({
+                ...form,
+                password:'',
+            })
+        }
     };
 
     return (
