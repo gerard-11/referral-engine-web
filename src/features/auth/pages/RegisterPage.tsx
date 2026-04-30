@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 export const RegisterPage = () => {
 
     const navigate=useNavigate();
-    const { register, isLoading, error,user } = useAuthStore();
+    const { register, isLoading, error } = useAuthStore();
 
     const [form, setForm] = useState({
         name: '',
@@ -25,9 +25,7 @@ export const RegisterPage = () => {
         e.preventDefault();
             await register(form);
             navigate('/profile');
-
     };
-console.log(user)
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <form

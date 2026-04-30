@@ -26,12 +26,14 @@ export const useAuthStore = create<AuthState>((set) => ({
             const response = await AuthService.login(data);
 
             const { accessToken } = response.data as LoginResponse;
-
             localStorage.setItem('token', accessToken);
-
+            const me= await AuthService.me();
+            const user= me.data
+            
             set({
                 accessToken,
                 isLoading: false,
+                user
             });
         } catch (error:any) {
             set({
