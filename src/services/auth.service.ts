@@ -1,4 +1,4 @@
-import { api } from '../../shared/services/api.ts';
+import { api } from '../shared/services/api.ts';
 
 
 export class AuthService {

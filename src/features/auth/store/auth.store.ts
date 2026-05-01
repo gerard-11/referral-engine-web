@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import type {LoginCredentials, LoginResponse, RegisterCredentials, User} from '../../../shared/types/types.ts';
-import { AuthService } from '../../../auth/services/auth.service.ts';
+import { AuthService } from '../../../services/auth.service.ts';
 
 interface AuthState {
     user: User | null;

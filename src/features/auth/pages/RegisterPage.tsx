@@ -7,11 +7,13 @@ export const RegisterPage = () => {
 
     const navigate=useNavigate();
     const { register, isLoading, error } = useAuthStore();
+    const [referralCode, setReferralCode] = useState(false);
 
     const [form, setForm] = useState({
         name: '',
         email: '',
         password: '',
+        referralCode: '',
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,10 +29,10 @@ export const RegisterPage = () => {
             navigate('/profile');
     };
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="min-h-screen flex items-center justify-center ">
             <form
                 onSubmit={handleSubmit}
-                className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md"
+                className="p-8 rounded-2xl shadow-md w-full max-w-md"
             >
                 <h2 className="text-2xl font-bold mb-6 text-center">
                     Crear Cuenta
@@ -71,6 +73,21 @@ export const RegisterPage = () => {
                         required
                     />
                 </div>
+                <button className=" mt-5 mb-5 cursor-pointer" onClick={()=>setReferralCode(prev=>!prev)}>tengo u codigo de refrerdio </button>
+                {referralCode && (
+                    <div className="mb-4">
+                        <label className=" mb-1 ">Codigo de Referido</label>
+                        <input
+                            type="referralCode"
+                            name="referralCode"
+                            value={form.referralCode}
+                            onChange={handleChange}
+                            className="w-full border rounded-lg px-3 py-2"
+                            required
+                        />
+                    </div>
+                )}
+
 
                 {error && (
                     <p className="text-red-500 text-sm mb-4">{error}</p>
