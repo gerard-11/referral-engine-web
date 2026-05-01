@@ -4,7 +4,6 @@ import {useAuthStore} from "../../features/auth/store/auth.store.ts";
 export const Navbar = () => {
     const { user,logout } = useAuthStore();
 
-    console.log(user);
     return (
         <nav className="bg-gray-900 text-white px-6 py-1 flex justify-between items-center">
             <h1 className="text-xl font-bold">MyApp</h1>

@@ -4,6 +4,7 @@ export interface LoginCredentials {
 }
 
 export interface User {
+    id: string;
     name: string;
     username: string;
     email: string;
@@ -27,5 +28,20 @@ export interface RegisterResponse {
     isActive: boolean;
     createdAt: string;
     updatedAt: string;
+}
+
+export interface Referral{
+    id: string;
+    name: string;
+    email: string;
+    createdAt: string;
+}
+
+export interface ReferralResponse {
+    data: Referral[];
+    meta: {
+        page: number;
+        total: number;
+    };
 }
 
