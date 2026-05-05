@@ -1,0 +1,11 @@
+model: gemini-pro
+temperature: 0.2
+
+system_prompt: |
+  Lee y respeta todos los archivos dentro de la carpeta /ai antes de responder.
+
+context_files:
+  - ai/rules.md
+  - ai/context.md
+  - ai/progress.md
+  - ai/decisions.md

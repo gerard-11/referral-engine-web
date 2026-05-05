@@ -1,0 +1,48 @@
+# Node
+node_modules/
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Env (seguridad)
+.env
+.env.*
+
+# Git
+.git/
+.gitignore
+
+# OS
+.DS_Store
+
+# Coverage / tests
+coverage/
+
+# Cache
+.cache/
+.tmp/
+
+# Archivos grandes o irrelevantes
+*.zip
+*.tar
+*.gz
+
+# Docs innecesarios para contexto
+README.md
+
+# AI (evitar ruido interno)
+ai/progress.md
+
+# Opcional (si tienes muchos assets)
+public/
+assets/
+
+# Archivos generados
+*.lock
+
+# IDE
+.vscode/
+.idea/

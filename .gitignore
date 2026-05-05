@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+
+.ai/process.md
+.geminiignore
