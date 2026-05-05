@@ -11,6 +11,7 @@ interface AuthState {
     login: (data: LoginCredentials) => Promise<void>;
     register: (data: RegisterCredentials) => Promise<void>;
     logout: () => void;
+    checkAuth: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -18,6 +19,20 @@ export const useAuthStore = create<AuthState>((set) => ({
     accessToken: localStorage.getItem('token'),
     isLoading: false,
     error: null,
+
+    checkAuth: async () => {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        try {
+            set({ isLoading: true });
+            const response = await AuthService.me();
+            set({ user: response.data, isLoading: false });
+        } catch  {
+            set({ user: null, accessToken: null, isLoading: false });
+            localStorage.removeItem('token');
+        }
+    },
 
     login: async (data) => {
         try {
