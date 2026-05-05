@@ -33,8 +33,6 @@ coverage/
 # Docs innecesarios para contexto
 README.md
 
-# AI (evitar ruido interno)
-ai/progress.md
 
 # Opcional (si tienes muchos assets)
 public/
