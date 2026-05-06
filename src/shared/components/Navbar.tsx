@@ -5,7 +5,7 @@ export const Navbar = () => {
     const { user,logout } = useAuthStore();
 
     return (
-        <nav className="bg-gray-900 text-white px-6 py-1 flex justify-between items-center">
+        <nav className="bg-gray-900 text-white px-6 py-3 flex justify-between items-center">
             <h1 className="text-xl font-bold">MyApp</h1>
 
             <ul className="flex gap-6">
@@ -45,7 +45,7 @@ export const Navbar = () => {
                         <li>
                             <button
                                 onClick={logout}
-                                className="bg-red-500 px-4 py-2 rounded hover:bg-red-600"
+                                className="bg-red-500 px-4 py-1 cursor-pointer rounded hover:bg-red-600"
                             >
                                 Logout
                             </button>

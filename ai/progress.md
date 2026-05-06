@@ -1,14 +1,15 @@
 # 📈 Seguimiento del Proceso
 
 ## 🏁 Último Paso Completado
-- **Refactorización de ProfilePage:**
-  - Se implementaron selectores de Zustand para optimizar el rendimiento.
-  - Se eliminó la lógica de redirección redundante (ahora delegada a `ProtectedRoute`).
-  - Se ajustó el consumo de datos de `useReferrals` para alinearse con la transformación del hook.
-  - Se mejoró la UI inicial con estados de carga y bienvenida personalizada.
+- **Diferenciación de Dashboards por Rol:**
+  - Se actualizaron los tipos en `types.ts` para incluir roles (`AGENT`, `CLIENT`) y el `ClientScore`.
+  - Se crearon componentes especializados: `AgentDashboard` y `ClientDashboard`.
+  - Se implementó renderizado condicional en `ProfilePage` para mostrar la interfaz adecuada según el rol.
+  - Se mejoró la UX del Cliente con un contador de "Referidos Verdes" y botón de acción principal.
 
 ## 🚀 Paso Pendiente
-- **Gestión de Referidos y Estadísticas:**
-  - Implementar la visualización de estadísticas reales en el Dashboard.
-  - Asegurar que el interceptor de Axios maneje correctamente el flujo de refresco de tokens (Refresh Token) si es necesario.
-  - Añadir funcionalidad para registrar nuevos referidos desde el perfil.
+- **Sistema de Encuesta (Agregar Referido):**
+  - Implementar el Modal y el formulario de encuesta para el rol Cliente.
+  - Configurar la lógica de pesos y el cálculo visual del scoring (colores).
+  - Integrar la mutación de React Query para guardar el referido y refrescar las recompensas.
+  - Asegurar que el interceptor de Axios maneje correctamente el flujo de refresco de tokens.

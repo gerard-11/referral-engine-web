@@ -3,11 +3,17 @@ export interface LoginCredentials {
     password: string;
 }
 
+export type Role = 'AGENT' | 'CLIENT';
+
 export interface User {
     id: string;
     name: string;
     username: string;
     email: string;
+    role: Role;
+    clientScore?: {
+        greenLeads: number;
+    };
 }
 
 export interface LoginResponse {
