@@ -9,7 +9,6 @@ export const Sidebar = ({ referrals, onSelect }:SidebarProps) => {
     if(!referrals){
         return <p>Aun no tienes referidos.</p>;
     }
-    console.log(referrals);
     return (
         <div className="p-4">
 

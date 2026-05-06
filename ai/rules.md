@@ -50,3 +50,4 @@ La calidad del referido se determina por una encuesta ponderada completada por e
 - **Commits:** Conventional Commits.
 - **UI:** Tailwind CSS, usando colores semánticos para el scoring (green-500, yellow-500, red-500).
 - **Mentoría:** Explicar siempre el fundamento técnico detrás de cada implementación.
+- **Comentarios:** PROHIBIDO incluir comentarios en el código (ni //, ni /* */, ni JSDoc).

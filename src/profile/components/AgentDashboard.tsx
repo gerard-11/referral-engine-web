@@ -16,7 +16,7 @@ export const AgentDashboard = ({ referrals, onSelect, selectedReferral }: AgentD
                         <p className="text-sm text-gray-500 uppercase tracking-wider">Total Referidos</p>
                         <p className="text-3xl font-bold text-gray-900">{referrals.length}</p>
                     </div>
-                    {/* Aquí podríamos añadir un mini gráfico o indicadores de colores */}
+
                 </div>
             </div>
 
