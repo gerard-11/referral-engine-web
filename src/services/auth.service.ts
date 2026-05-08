@@ -1,6 +1,5 @@
 import { api } from '../shared/services/api.ts';
 
-
 export class AuthService {
     static async register(data: {
         name: string;
@@ -11,7 +10,7 @@ export class AuthService {
     }
 
      static async login(data: {
-       email: string;
+        email: string;
         password: string;
     }) {
         return api.post('/auth/login', data);

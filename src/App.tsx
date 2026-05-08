@@ -8,7 +8,6 @@ import {ProtectedRoute} from "./shared/components/ProtectedRoute.tsx";
 
 
 function App() {
-    
 
   return (
     <Routes>
