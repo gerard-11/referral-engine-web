@@ -11,6 +11,7 @@ export interface User {
     username: string;
     email: string;
     role: Role;
+    referralCode?: string;
     clientScore?: {
         greenLeads: number;
     };
@@ -49,5 +50,14 @@ export interface ReferralResponse {
         page: number;
         total: number;
     };
+}
+
+export interface Question {
+    id: string;
+    agentId: string;
+    text: string;
+    weight: number;
+    isActive: boolean;
+    createdAt: string;
 }
 

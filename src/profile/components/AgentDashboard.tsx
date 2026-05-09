@@ -1,19 +1,20 @@
-import type { Referral } from "../../shared/types/types";
+import type { Referral, User } from "../../shared/types/types";
 
 interface AgentDashboardProps {
     referrals: Referral[];
     onSelect: (referral: Referral) => void;
     selectedReferral: Referral | null;
+    user?: User;
 }
 
-export const AgentDashboard = ({ referrals, onSelect, selectedReferral }: AgentDashboardProps) => {
+export const AgentDashboard = ({ referrals, onSelect, selectedReferral, user }: AgentDashboardProps) => {
     const recentReferrals = referrals.slice(0, 5);
 
     return (
         <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-6">
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h3 className="text-lg font-semibold text-gray-700 mb-4">Métricas de Red</h3>
+                <div className="space-y-6">
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <h3 className="text-lg font-semibold text-gray-700 mb-4">Métricas de Red</h3>
                     <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg">
                         <div>
                             <p className="text-sm text-gray-500 uppercase tracking-wider">Total Referidos</p>

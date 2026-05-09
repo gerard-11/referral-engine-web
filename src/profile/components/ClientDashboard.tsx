@@ -2,21 +2,45 @@ import { useState } from "react";
 import { useAuthStore } from "../../features/auth/store/auth.store";
 import { Modal } from "../../shared/components/Modal";
 import { AddReferralForm } from "../../features/referrals/components/AddReferralForm";
+import { useQuestions } from "../../features/questions/hooks/useQuestions";
+import { QuestionsForm } from "../../features/questions/components/QuestionsForm";
+import { useLead } from "../../features/questions/hooks/useLead";
+import type { LeadInput } from "../../features/questions/services/leads.service";
 
 export const ClientDashboard = () => {
     const user = useAuthStore((state) => state.user);
     const greenLeads = user?.clientScore?.greenLeads || 0;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [step, setStep] = useState(1);
+    const [referralData, setReferralData] = useState<{ name: string; email: string; phone: string } | null>(null);
 
-    const handleOpenModal = () => setIsModalOpen(true);
-    const handleCloseModal = () => setIsModalOpen(false);
+    const { data: questions = [] } = useQuestions();
+    const { mutate: createLead, isPending: isCreatingLead } = useLead();
 
-    const handleFormSubmit = (data: any) => {
-        console.log("Datos del referido:", data);
-        setTimeout(() => {
-            handleCloseModal();
-        }, 1000);
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+        setStep(1);
+        setReferralData(null);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setStep(1);
+        setReferralData(null);
+    };
+
+    const handleFormSubmit = (data: { name: string; email: string; phone: string }) => {
+        setReferralData(data);
+        setStep(2);
+    };
+
+    const handleQuestionsSubmit = (leadData: LeadInput) => {
+        createLead(leadData, {
+            onSuccess: () => {
+                handleCloseModal();
+            },
+        });
     };
 
     return (
@@ -45,15 +69,25 @@ export const ClientDashboard = () => {
                 </div>
             </section>
 
-            <Modal 
-                isOpen={isModalOpen} 
-                onClose={handleCloseModal} 
-                title="Registrar Nuevo Referido"
+            <Modal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                title={step === 1 ? "Registrar Nuevo Referido" : "Responder Encuesta"}
             >
-                <AddReferralForm 
-                    onSubmit={handleFormSubmit} 
-                    isLoading={false} 
-                />
+                {step === 1 && (
+                    <AddReferralForm
+                        onSubmit={handleFormSubmit}
+                        isLoading={false}
+                    />
+                )}
+                {step === 2 && referralData && (
+                    <QuestionsForm
+                        questions={questions}
+                        referralData={referralData}
+                        onSubmit={handleQuestionsSubmit}
+                        isLoading={isCreatingLead}
+                    />
+                )}
             </Modal>
         </div>
     );

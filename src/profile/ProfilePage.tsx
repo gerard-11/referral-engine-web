@@ -46,10 +46,11 @@ return (
             </header>
 
             {role === 'AGENT' ? (
-                <AgentDashboard 
-                    referrals={referrals || []} 
+                <AgentDashboard
+                    referrals={referrals || []}
                     onSelect={setSelectedReferral}
                     selectedReferral={selectedReferral}
+                    user={user}
                 />
             ) : (
                 <ClientDashboard />

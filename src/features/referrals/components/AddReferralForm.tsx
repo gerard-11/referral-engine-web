@@ -6,6 +6,7 @@ import { z } from 'zod';
 const referralSchema = z.object({
   name: z.string().min(3, 'El nombre debe tener al menos 3 caracteres'),
   email: z.string().email('Introduce un email válido'),
+  phone: z.string().regex(/^\+?(\d{10,15})$/, "Número debe tener 10-15 dígitos"),
 });
 
 type ReferralFormData = z.infer<typeof referralSchema>;
@@ -55,6 +56,19 @@ export const AddReferralForm = ({ onSubmit, isLoading }: AddReferralFormProps) =
                 placeholder="correo@ejemplo.com"
             />
             {errors.email && <p className="text-xs text-red-500 font-medium pl-1">{errors.email.message}</p>}
+
+            <label className="block text-sm font-semibold text-gray-700">Numero de telefono</label>
+            <input
+                {...register('phone')}
+                type="phone"
+                className={`w-full p-3 rounded-xl border transition-all outline-none focus:ring-2 ${
+                    errors.phone
+                        ? 'border-red-300 focus:ring-red-100'
+                        : 'border-gray-200 focus:ring-blue-100 focus:border-blue-400'
+                }`}
+                placeholder="ej. 2481102345"
+            />
+            {errors.phone && <p className="text-xs text-red-500 font-medium pl-1">{errors.phone.message}</p>}
         </div>
 
         <div className="pt-2">
