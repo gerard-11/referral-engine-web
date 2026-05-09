@@ -1,4 +1,5 @@
 import type { Referral, User } from "../../shared/types/types";
+import { useState } from "react";
 
 interface AgentDashboardProps {
     referrals: Referral[];
@@ -9,18 +10,43 @@ interface AgentDashboardProps {
 
 export const AgentDashboard = ({ referrals, onSelect, selectedReferral, user }: AgentDashboardProps) => {
     const recentReferrals = referrals.slice(0, 5);
+    const [copied, setCopied] = useState(false);
+
+    const handleCopyCode = () => {
+        if (user?.referralCode) {
+            navigator.clipboard.writeText(user.referralCode);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        }
+    };
 
     return (
         <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-6">
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                         <h3 className="text-lg font-semibold text-gray-700 mb-4">Métricas de Red</h3>
-                    <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg">
+                    <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg mb-4">
                         <div>
                             <p className="text-sm text-gray-500 uppercase tracking-wider">Total Referidos</p>
                             <p className="text-3xl font-bold text-gray-900">{referrals.length}</p>
                         </div>
                     </div>
+                    {user?.referralCode && (
+                        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <p className="text-xs text-gray-600 uppercase tracking-wider mb-2">Tu Código de Referral</p>
+                            <div className="flex items-center gap-2">
+                                <code className="flex-1 bg-white px-3 py-2 rounded text-sm font-mono font-bold text-blue-600 border border-blue-100">
+                                    {user.referralCode}
+                                </code>
+                                <button
+                                    onClick={handleCopyCode}
+                                    className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded transition-colors"
+                                >
+                                    {copied ? '✓ Copiado' : 'Copiar'}
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
