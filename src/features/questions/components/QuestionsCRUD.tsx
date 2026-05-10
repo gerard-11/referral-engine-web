@@ -260,7 +260,7 @@ interface NewRowProps {
 
 const NewRow = ({ onSave, onCancel, errors, isLoading }: NewRowProps) => {
     const [text, setText] = useState('');
-    const [weight, setWeight] = useState(1);
+    const [weight, setWeight] = useState(5);
 
     return (
         <>

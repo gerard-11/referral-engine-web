@@ -2,7 +2,9 @@ import type { Referral, User } from "../../shared/types/types";
 import { useState } from "react";
 import { QuestionsCRUD } from "../../features/questions/components/QuestionsCRUD";
 import { LeadsTable } from "../../features/questions/components/LeadsTable";
+import { LeadDetail } from "../../features/questions/components/LeadDetail";
 import { useLeads } from "../../features/questions/hooks/useLeads";
+import type { LeadResponse } from "../../features/questions/services/leads.service";
 
 interface AgentDashboardProps {
     referrals: Referral[];
@@ -11,34 +13,33 @@ interface AgentDashboardProps {
     user?: User;
 }
 
-type TabType = "network" | "questions" | "results"
+type TabType = "clients" | "questions" | "results"
 
-export const AgentDashboard = ({ referrals, onSelect, selectedReferral, user }: AgentDashboardProps) => {
-    const recentReferrals = referrals.slice(0, 5);
-    const [copied, setCopied] = useState(false);
-    const [activeTab, setActiveTab] = useState<TabType>("network");
+export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
+
+    const [activeTab, setActiveTab] = useState<TabType>("clients");
+    const [selectedClient, setSelectedClient] = useState<Referral | null>(null);
+    const [selectedLead, setSelectedLead] = useState<LeadResponse | null>(null);
     const { data: leadsData, isLoading: isLoadingLeads } = useLeads();
 
-    const handleCopyCode = () => {
-        if (user?.referralCode) {
-            navigator.clipboard.writeText(user.referralCode);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-        }
-    };
+    const clientLeads = selectedClient
+        ? leadsData?.data.filter(lead => lead.clientId === selectedClient.id) || []
+        : [];
+
+
 
     return (
         <section className="space-y-6">
             <div className="flex gap-2 border-b border-gray-200">
                 <button
-                    onClick={() => setActiveTab("network")}
+                    onClick={() => setActiveTab("clients")}
                     className={`px-4 py-3 font-medium border-b-2 transition-colors ${
-                        activeTab === "network"
+                        activeTab === "clients"
                             ? "border-blue-600 text-blue-600"
                             : "border-transparent text-gray-600 hover:text-gray-800"
                     }`}
                 >
-                    Mi Red
+                    Mis Clientes
                 </button>
                 <button
                     onClick={() => setActiveTab("questions")}
@@ -62,66 +63,124 @@ export const AgentDashboard = ({ referrals, onSelect, selectedReferral, user }: 
                 </button>
             </div>
 
-            {activeTab === "network" && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-6">
-                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                        <h3 className="text-lg font-semibold text-gray-700 mb-4">Métricas de Red</h3>
-                    <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg mb-4">
-                        <div>
-                            <p className="text-sm text-gray-500 uppercase tracking-wider">Total Referidos</p>
-                            <p className="text-3xl font-bold text-gray-900">{referrals.length}</p>
+            {activeTab === "clients" && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="md:col-span-1">
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 sticky top-6">
+                        <h3 className="text-lg font-semibold text-gray-700 mb-4">Mis Clientes</h3>
+                        <div className="space-y-2">
+                            {referrals.length === 0 ? (
+                                <p className="text-sm text-gray-500 italic">No hay clientes registrados.</p>
+                            ) : (
+                                <ul className="space-y-2">
+                                    {referrals.map((client) => (
+                                        <li
+                                            key={client.id}
+                                            onClick={() => {
+                                                setSelectedClient(client);
+                                                setSelectedLead(null);
+                                            }}
+                                            className={`p-3 rounded-lg cursor-pointer transition-colors ${
+                                                selectedClient?.id === client.id
+                                                    ? 'bg-blue-100 border-l-4 border-blue-600'
+                                                    : 'hover:bg-gray-50'
+                                            }`}
+                                        >
+                                            <p className="text-sm font-medium text-gray-800">{client.name}</p>
+                                            <p className="text-xs text-gray-500">{client.email}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
                     </div>
-                    {user?.referralCode && (
-                        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                            <p className="text-xs text-gray-600 uppercase tracking-wider mb-2">Tu Código de Referral</p>
-                            <div className="flex items-center gap-2">
-                                <code className="flex-1 bg-white px-3 py-2 rounded text-sm font-mono font-bold text-blue-600 border border-blue-100">
-                                    {user.referralCode}
-                                </code>
-                                <button
-                                    onClick={handleCopyCode}
-                                    className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded transition-colors"
-                                >
-                                    {copied ? '✓ Copiado' : 'Copiar'}
-                                </button>
+                </div>
+
+                <div className="md:col-span-2 space-y-6">
+
+
+                    {selectedClient && !selectedLead && (
+                        <>
+                            <div className="bg-blue-50 p-6 rounded-xl shadow-sm border border-blue-100 animate-fade-in">
+                                <h3 className="text-lg font-semibold text-blue-800 mb-2">Detalles del Cliente</h3>
+                                <div className="space-y-1">
+                                    <p className="text-blue-900 font-bold text-xl">{selectedClient.name}</p>
+                                    <p className="text-blue-700">{selectedClient.email}</p>
+                                    <p className="text-blue-600 text-xs mt-2 italic">Registrado el: {new Date(selectedClient.createdAt).toLocaleDateString('es-ES')}</p>
+                                </div>
                             </div>
+
+                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                                <h3 className="text-lg font-semibold text-gray-700 mb-4">Referidos del Cliente</h3>
+                                {isLoadingLeads ? (
+                                    <p className="text-center text-gray-500">Cargando referidos...</p>
+                                ) : clientLeads.length === 0 ? (
+                                    <p className="text-center text-gray-500 py-6">Este cliente no tiene referidos aún</p>
+                                ) : (
+                                    <div className="overflow-x-auto">
+                                        <table className="w-full text-sm">
+                                            <thead>
+                                                <tr className="border-b border-gray-200">
+                                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Nombre</th>
+                                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Email</th>
+                                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Teléfono</th>
+                                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Score</th>
+                                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Estado</th>
+                                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {clientLeads.map((lead) => (
+                                                    <tr key={lead.leadId} className="border-b border-gray-100 hover:bg-gray-50">
+                                                        <td className="py-3 px-4 text-gray-800 font-medium">{lead.name}</td>
+                                                        <td className="py-3 px-4 text-gray-600">{lead.email}</td>
+                                                        <td className="py-3 px-4 text-gray-600">{lead.phone}</td>
+                                                        <td className="py-3 px-4 text-gray-800 font-semibold">{lead.score}</td>
+                                                        <td className="py-3 px-4">
+                                                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                                                lead.status === 'GREEN' ? 'bg-green-100 text-green-700' :
+                                                                lead.status === 'YELLOW' ? 'bg-yellow-100 text-yellow-700' :
+                                                                'bg-red-100 text-red-700'
+                                                            }`}>
+                                                                {lead.status}
+                                                            </span>
+                                                        </td>
+                                                        <td className="py-3 px-4">
+                                                            <button
+                                                                onClick={() => setSelectedLead(lead)}
+                                                                className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                                                            >
+                                                                Ver detalles
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )}
+                            </div>
+                        </>
+                    )}
+
+                    {selectedLead && (
+                        <div className="space-y-4">
+                            <button
+                                onClick={() => setSelectedLead(null)}
+                                className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1"
+                            >
+                                ← Volver a referidos
+                            </button>
+                            <LeadDetail lead={selectedLead} />
+                        </div>
+                    )}
+
+                    {!selectedClient && (
+                        <div className="bg-gray-50 p-12 rounded-xl border border-gray-200 text-center">
+                            <p className="text-gray-500">Selecciona un cliente para ver sus referidos</p>
                         </div>
                     )}
                 </div>
-
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h3 className="text-lg font-semibold text-gray-700 mb-4">Referidos Recientes</h3>
-                    <ul className="divide-y divide-gray-100">
-                        {recentReferrals.map((ref) => (
-                            <li 
-                                key={ref.id} 
-                                onClick={() => onSelect(ref)}
-                                className="py-3 flex justify-between items-center cursor-pointer hover:bg-gray-50 transition-colors px-2 rounded-lg"
-                            >
-                                <span className="text-sm font-medium text-gray-800">{ref.name}</span>
-                                <span className="text-xs text-gray-400">{new Date(ref.createdAt).toLocaleDateString()}</span>
-                            </li>
-                        ))}
-                        {referrals.length === 0 && (
-                            <p className="text-sm text-gray-500 italic">No hay referidos registrados.</p>
-                        )}
-                    </ul>
-                </div>
-            </div>
-...
-
-            {selectedReferral && (
-                <div className="bg-blue-50 p-6 rounded-xl shadow-sm border border-blue-100 animate-fade-in">
-                    <h3 className="text-lg font-semibold text-blue-800 mb-2">Detalles del Referido</h3>
-                    <div className="space-y-1">
-                        <p className="text-blue-900 font-bold text-xl">{selectedReferral.name}</p>
-                        <p className="text-blue-700">{selectedReferral.email}</p>
-                        <p className="text-blue-600 text-xs mt-2 italic text-right">Registrado el: {new Date(selectedReferral.createdAt).toLocaleDateString()}</p>
-                    </div>
-                </div>
-            )}
             </div>
             )}
 

@@ -11,6 +11,15 @@ export const ProfilePage = () => {
     const role = user?.role;
     const { data: referrals, isLoading } = useReferrals(user?.id);
     const [selectedReferral, setSelectedReferral] = useState<Referral | null>(null);
+    const [copied, setCopied] = useState(false);
+
+    const handleCopyCode = () => {
+        if (user?.referralCode) {
+            navigator.clipboard.writeText(user.referralCode);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        }
+    };
 
     if (isLoading) {
         return (
@@ -22,15 +31,6 @@ export const ProfilePage = () => {
     }
 return (
     <div className="min-h-screen flex bg-gray-100 font-sans">
-        {role === 'AGENT' && (
-            <aside className="w-64 bg-white shadow-lg border-r border-gray-200">
-                <Sidebar
-                    referrals={referrals || []}
-                    onSelect={setSelectedReferral}
-                />
-            </aside>
-        )}
-
         <main className="flex-1 p-8">
             <header className="mb-8 border-b border-gray-200 pb-4">
                 <h1 className="text-3xl font-extrabold text-gray-900">
@@ -42,6 +42,22 @@ return (
                         {role}
                     </span>
                 </p>
+
+                    <div className="bg-blue-50 p-6 rounded-xl w-65 shadow-sm border mt-2 border-blue-200">
+                        <p className="text-xs text-gray-600 uppercase tracking-wider mb-3 font-semibold">Tu Código de Referral</p>
+                        <div className="flex items-center gap-2">
+                            <code className="flex-1 bg-white px-3 py-2 rounded text-sm font-mono font-bold text-blue-600 border border-blue-100">
+                                {user?.referralCode}
+                            </code>
+                            <button
+                                onClick={handleCopyCode}
+                                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded transition-colors whitespace-nowrap"
+                            >
+                                {copied ? '✓ Copiado' : 'Copiar'}
+                            </button>
+                        </div>
+                    </div>
+
             </header>
 
             {role === 'AGENT' ? (

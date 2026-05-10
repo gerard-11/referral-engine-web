@@ -20,6 +20,8 @@ export interface LeadResponse {
     score: number;
     status: 'GREEN' | 'YELLOW' | 'RED';
     createdAt: string;
+    isContacted?: boolean;
+    comments?: string;
 }
 
 export const createLead = async (data: LeadInput): Promise<LeadResponse> => {
