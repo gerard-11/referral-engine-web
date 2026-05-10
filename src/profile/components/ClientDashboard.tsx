@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuthStore } from "../../features/auth/store/auth.store";
 import { Modal } from "../../shared/components/Modal";
 import { AddReferralForm } from "../../features/referrals/components/AddReferralForm";
-import { useQuestions } from "../../features/questions/hooks/useQuestions";
+import { useAgentQuestions } from "../../features/questions/hooks/useAgentQuestions";
 import { QuestionsForm } from "../../features/questions/components/QuestionsForm";
 import { useLead } from "../../features/questions/hooks/useLead";
 import type { LeadInput } from "../../features/questions/services/leads.service";
@@ -15,7 +15,7 @@ export const ClientDashboard = () => {
     const [step, setStep] = useState(1);
     const [referralData, setReferralData] = useState<{ name: string; email: string; phone: string } | null>(null);
 
-    const { data: questions = [] } = useQuestions();
+    const { data: questions = [] } = useAgentQuestions(user?.agentId);
     const { mutate: createLead, isPending: isCreatingLead } = useLead();
 
     const handleOpenModal = () => {

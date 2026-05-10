@@ -9,7 +9,6 @@ import { ClientDashboard } from "./components/ClientDashboard.tsx";
 export const ProfilePage = () => {
     const user = useAuthStore((state) => state.user);
     const role = user?.role;
-
     const { data: referrals, isLoading } = useReferrals(user?.id);
     const [selectedReferral, setSelectedReferral] = useState<Referral | null>(null);
 

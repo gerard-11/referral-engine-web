@@ -1,5 +1,8 @@
 import type { Referral, User } from "../../shared/types/types";
 import { useState } from "react";
+import { QuestionsCRUD } from "../../features/questions/components/QuestionsCRUD";
+import { LeadsTable } from "../../features/questions/components/LeadsTable";
+import { useLeads } from "../../features/questions/hooks/useLeads";
 
 interface AgentDashboardProps {
     referrals: Referral[];
@@ -8,9 +11,13 @@ interface AgentDashboardProps {
     user?: User;
 }
 
+type TabType = "network" | "questions" | "results"
+
 export const AgentDashboard = ({ referrals, onSelect, selectedReferral, user }: AgentDashboardProps) => {
     const recentReferrals = referrals.slice(0, 5);
     const [copied, setCopied] = useState(false);
+    const [activeTab, setActiveTab] = useState<TabType>("network");
+    const { data: leadsData, isLoading: isLoadingLeads } = useLeads();
 
     const handleCopyCode = () => {
         if (user?.referralCode) {
@@ -21,7 +28,42 @@ export const AgentDashboard = ({ referrals, onSelect, selectedReferral, user }: 
     };
 
     return (
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section className="space-y-6">
+            <div className="flex gap-2 border-b border-gray-200">
+                <button
+                    onClick={() => setActiveTab("network")}
+                    className={`px-4 py-3 font-medium border-b-2 transition-colors ${
+                        activeTab === "network"
+                            ? "border-blue-600 text-blue-600"
+                            : "border-transparent text-gray-600 hover:text-gray-800"
+                    }`}
+                >
+                    Mi Red
+                </button>
+                <button
+                    onClick={() => setActiveTab("questions")}
+                    className={`px-4 py-3 font-medium border-b-2 transition-colors ${
+                        activeTab === "questions"
+                            ? "border-blue-600 text-blue-600"
+                            : "border-transparent text-gray-600 hover:text-gray-800"
+                    }`}
+                >
+                    Mis Preguntas
+                </button>
+                <button
+                    onClick={() => setActiveTab("results")}
+                    className={`px-4 py-3 font-medium border-b-2 transition-colors ${
+                        activeTab === "results"
+                            ? "border-blue-600 text-blue-600"
+                            : "border-transparent text-gray-600 hover:text-gray-800"
+                    }`}
+                >
+                    Mis Resultados
+                </button>
+            </div>
+
+            {activeTab === "network" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-6">
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                         <h3 className="text-lg font-semibold text-gray-700 mb-4">Métricas de Red</h3>
@@ -79,6 +121,16 @@ export const AgentDashboard = ({ referrals, onSelect, selectedReferral, user }: 
                         <p className="text-blue-600 text-xs mt-2 italic text-right">Registrado el: {new Date(selectedReferral.createdAt).toLocaleDateString()}</p>
                     </div>
                 </div>
+            )}
+            </div>
+            )}
+
+            {activeTab === "questions" && (
+                <QuestionsCRUD />
+            )}
+
+            {activeTab === "results" && (
+                <LeadsTable leads={leadsData?.data || []} isLoading={isLoadingLeads} />
             )}
         </section>
     );

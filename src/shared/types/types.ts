@@ -12,6 +12,7 @@ export interface User {
     email: string;
     role: Role;
     referralCode?: string;
+    agentId?: string;
     clientScore?: {
         greenLeads: number;
     };
