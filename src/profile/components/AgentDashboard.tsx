@@ -15,7 +15,7 @@ interface AgentDashboardProps {
 
 type TabType = "clients" | "questions" | "results"
 
-export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
+export const AgentDashboard = ({ referrals }: AgentDashboardProps) => {
 
     const [activeTab, setActiveTab] = useState<TabType>("clients");
     const [selectedClient, setSelectedClient] = useState<Referral | null>(null);
