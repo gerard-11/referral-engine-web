@@ -1,6 +1,5 @@
 import { useAuthStore } from "../features/auth/store/auth.store.ts";
 import { useState } from "react";
-import { Sidebar } from "./components/Sidebar.tsx";
 import type { Referral } from '../shared/types/types.ts';
 import { useReferrals } from "../features/referrals/hooks/useReferrals.ts";
 import { AgentDashboard } from "./components/AgentDashboard.tsx";
@@ -42,7 +41,7 @@ return (
                         {role}
                     </span>
                 </p>
-
+                {role === "AGENT" && (
                     <div className="bg-blue-50 p-6 rounded-xl w-65 shadow-sm border mt-2 border-blue-200">
                         <p className="text-xs text-gray-600 uppercase tracking-wider mb-3 font-semibold">Tu Código de Referral</p>
                         <div className="flex items-center gap-2">
@@ -57,6 +56,8 @@ return (
                             </button>
                         </div>
                     </div>
+                )}
+
 
             </header>
 

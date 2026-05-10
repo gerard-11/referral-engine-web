@@ -5,6 +5,8 @@ import {RegisterPage} from "./features/auth/pages/RegisterPage.tsx";
 import {MainLayout} from "./layouts/MainLayout.tsx";
 import {ProfilePage} from "./profile/ProfilePage.tsx";
 import {ProtectedRoute} from "./shared/components/ProtectedRoute.tsx";
+import {HomePage} from "./pages/HomePage.tsx";
+import {AgentProfilePage} from "./pages/AgentProfilePage.tsx";
 
 
 function App() {
@@ -12,7 +14,8 @@ function App() {
   return (
     <Routes>
             <Route element={<MainLayout/>}>
-                <Route path="/" element={<h1>Home</h1>} />
+                <Route path="/" element={<HomePage />} />
+                <Route path="/agent/:agentCode" element={<AgentProfilePage />} />
                 <Route element={<ProtectedRoute />}>
                     <Route path="/profile" element={<ProfilePage/>} />
                 </Route>

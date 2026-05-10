@@ -62,3 +62,11 @@ export interface Question {
     createdAt: string;
 }
 
+export interface AgentProfile {
+    id: string;
+    name: string;
+    referralCode: string;
+    bio?: string;
+    avatarUrl?: string;
+}
+
