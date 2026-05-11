@@ -15,8 +15,9 @@ const { data: referrals, isLoading } = useReferrals(user?.id);
     const [copied, setCopied] = useState(false);
 
     const handleCopyCode = () => {
-        if (user?.referralCode) {
-            navigator.clipboard.writeText(user.referralCode);
+        const codeToCopy = role === 'CLIENT' ? agentCode?.agentCode : user?.referralCode;
+        if (codeToCopy) {
+            navigator.clipboard.writeText(codeToCopy);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         }
@@ -47,8 +48,7 @@ return (
                 {role === 'CLIENT' &&(
 
                     <div className="bg-blue-50 p-6 rounded-xl w-65 shadow-sm border mt-2 border-blue-200">
-
-                        <p className="text-xs text-gray-600 uppercase tracking-wider mb-3 ">comparte este codigo con tus referido</p>
+                        <p className="text-xs text-gray-600 uppercase tracking-wider mb-3 ">comparte este codigo con tus referidos</p>
                         <div className="flex items-center gap-2">
                             <code className="flex-1 bg-white px-3 py-2 rounded text-sm font-mono font-bold text-blue-600 border border-blue-100">
                                 {agentCode?.agentCode}
@@ -56,8 +56,7 @@ return (
                             <button
                                 onClick={handleCopyCode}
                                 className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded transition-colors whitespace-nowrap"
-                            >
-                                {copied ? '✓ Copiado' : 'Copiar'}
+                            >{copied ? '✓ Copiado' : 'Copiar'}
                             </button>
                         </div>
                     </div>
