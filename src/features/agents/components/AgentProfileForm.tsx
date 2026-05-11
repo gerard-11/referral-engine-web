@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useUpdateAgentProfile } from '../hooks/useUpdateAgentProfile';
+import { api } from '../../../shared/services/api';
 
 interface Agent {
     name: string;
@@ -20,6 +21,8 @@ export const AgentProfileForm = ({ agent }: AgentProfileFormProps) => {
         avatarUrl: agent.avatarUrl || '',
         phoneNumber: agent.phoneNumber || '',
     });
+    const [isUploadingImage, setIsUploadingImage] = useState(false);
+    const [uploadError, setUploadError] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -27,6 +30,33 @@ export const AgentProfileForm = ({ agent }: AgentProfileFormProps) => {
             ...prev,
             [name]: value,
         }));
+    };
+
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setIsUploadingImage(true);
+        setUploadError(null);
+
+        try {
+            const formDataFile = new FormData();
+            formDataFile.append('file', file);
+
+            const response = await api.post('/agents/upload-avatar', formDataFile, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+
+            const { avatarUrl } = response.data;
+            setFormData(prev => ({
+                ...prev,
+                avatarUrl,
+            }));
+        } catch (err) {
+            setUploadError(err instanceof Error ? err.message : 'Error al subir imagen');
+        } finally {
+            setIsUploadingImage(false);
+        }
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -54,6 +84,28 @@ export const AgentProfileForm = ({ agent }: AgentProfileFormProps) => {
                     Perfil actualizado exitosamente
                 </div>
             )}
+
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Foto de Perfil</label>
+                {formData.avatarUrl && (
+                    <div className="mb-3">
+                        <img
+                            src={formData.avatarUrl}
+                            alt="Avatar preview"
+                            className="w-24 h-24 rounded-lg object-cover border border-gray-300"
+                        />
+                    </div>
+                )}
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={isUploadingImage}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                {isUploadingImage && <p className="text-sm text-gray-500 mt-1">Subiendo imagen...</p>}
+                {uploadError && <p className="text-sm text-red-600 mt-1">{uploadError}</p>}
+            </div>
 
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>

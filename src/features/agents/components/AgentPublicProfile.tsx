@@ -18,13 +18,24 @@ export const AgentPublicProfile = ({ agent, onSearchAnother }: AgentPublicProfil
     return (
         <div className="space-y-4 sm:space-y-6">
             <div className="text-center">
+                {agent.avatarUrl ? (
+                    <img
+                        src={agent.avatarUrl}
+                        alt={agent.name}
+                        className="w-24 h-24 sm:w-32 sm:h-32 rounded-full mx-auto mb-4 object-cover border-4 border-blue-200"
+                    />
+                ) : (
+                    <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full mx-auto mb-4 bg-gray-300 border-4 border-blue-200 flex items-center justify-center">
+                        <span className="text-gray-600 text-sm">Sin foto</span>
+                    </div>
+                )}
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{agent.name}</h2>
                 {agent.bio && (
                     <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 px-2">{agent.bio}</p>
                 )}
                 <div className="bg-blue-50 p-3 sm:p-4 rounded-lg border border-blue-200 inline-block mb-3 sm:mb-4">
-
-                    {agent.avatarUrl}
+                    <p className="text-xs text-gray-600 uppercase tracking-wider mb-1">Código de Referral</p>
+                    <code className="text-base sm:text-lg font-mono font-bold text-blue-600">{agent.referralCode}</code>
                 </div>
             </div>
 
