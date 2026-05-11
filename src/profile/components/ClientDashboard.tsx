@@ -10,7 +10,6 @@ import type { LeadInput } from "../../features/questions/services/leads.service"
 
 export const ClientDashboard = () => {
     const user = useAuthStore((state) => state.user);
-    const greenLeads = user?.clientScore?.greenLeads || 0;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [step, setStep] = useState(1);
     const [referralData, setReferralData] = useState<{ name: string; email: string; phone: string } | null>(null);
@@ -18,6 +17,7 @@ export const ClientDashboard = () => {
     const { data: questions = [] } = useAgentQuestions(user?.agent?.id);
     const { mutate: createLead, isPending: isCreatingLead } = useLead();
     const { data: clientLeadsData, isLoading: isLoadingLeads } = useClientLeads();
+    const greenLeads = clientLeadsData?.data.filter(ref=> ref.status === "GREEN" ).length;
 
     const leads = clientLeadsData?.data || [];
     const sortedLeads = [
@@ -57,7 +57,7 @@ export const ClientDashboard = () => {
                 <div className="bg-gradient-to-br from-green-500 to-green-600 p-6 rounded-2xl shadow-lg text-white">
                     <h3 className="text-lg font-medium opacity-90">Tus Recompensas</h3>
                     <div className="mt-4 flex items-baseline">
-                        <p className="text-5xl font-extrabold">{greenLeads}</p>
+                        <p className="text-5xl font-extrabold">{greenLeads || []}</p>
                         <p className="ml-2 text-green-100">Referidos Verdes</p>
                     </div>
                     <p className="mt-4 text-sm bg-white/20 p-2 rounded-lg inline-block">
