@@ -16,6 +16,11 @@ export interface User {
     clientScore?: {
         greenLeads: number;
     };
+    agent?:{
+        name: string;
+        email: string;
+        agentCode?: string;
+    }
 }
 
 export interface LoginResponse {

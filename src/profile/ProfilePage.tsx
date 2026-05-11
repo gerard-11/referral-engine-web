@@ -8,10 +8,12 @@ import { ClientDashboard } from "./components/ClientDashboard.tsx";
 export const ProfilePage = () => {
     const user = useAuthStore((state) => state.user);
     const role = user?.role;
+    const agentCode=user?.agent
+console.log(agentCode)
     const { data: referrals, isLoading } = useReferrals(user?.id);
     const [selectedReferral, setSelectedReferral] = useState<Referral | null>(null);
     const [copied, setCopied] = useState(false);
-
+console.log(user)
     const handleCopyCode = () => {
         if (user?.referralCode) {
             navigator.clipboard.writeText(user.referralCode);
@@ -33,14 +35,33 @@ return (
         <main className="flex-1 p-8">
             <header className="mb-8 border-b border-gray-200 pb-4">
                 <h1 className="text-3xl font-extrabold text-gray-900">
-                    {role === 'AGENT' ? 'Panel de Agente' : 'Mi Perfil de Recompensas'}
+                    {role === 'AGENT' && 'Panel de Agente'}
                 </h1>
+
                 <p className="text-gray-600 mt-2">
                     Bienvenido, <span className="font-semibold text-blue-600">{user?.name}</span> 
                     <span className="ml-2 px-2 py-1 bg-gray-200 text-gray-700 text-xs rounded-full uppercase tracking-wider font-bold">
                         {role}
                     </span>
                 </p>
+                {role === 'CLIENT' &&(
+
+                    <div className="bg-blue-50 p-6 rounded-xl w-65 shadow-sm border mt-2 border-blue-200">
+
+                        <p className="text-xs text-gray-600 uppercase tracking-wider mb-3 ">comparte este codigo con tus referido</p>
+                        <div className="flex items-center gap-2">
+                            <code className="flex-1 bg-white px-3 py-2 rounded text-sm font-mono font-bold text-blue-600 border border-blue-100">
+                                {agentCode?.agentCode}
+                            </code>
+                            <button
+                                onClick={handleCopyCode}
+                                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded transition-colors whitespace-nowrap"
+                            >
+                                {copied ? '✓ Copiado' : 'Copiar'}
+                            </button>
+                        </div>
+                    </div>
+                )}
                 {role === "AGENT" && (
                     <div className="bg-blue-50 p-6 rounded-xl w-65 shadow-sm border mt-2 border-blue-200">
                         <p className="text-xs text-gray-600 uppercase tracking-wider mb-3 font-semibold">Tu Código de Referral</p>

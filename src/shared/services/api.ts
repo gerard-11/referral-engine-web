@@ -20,18 +20,21 @@ api.interceptors.response.use(
         if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
             try {
-                const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/auth/refresh`, {}, {
-                    withCredentials: true
-                });
+                // Llamar a refresh usando axios directo para evitar circular dependency
+                const { data } = await axios.post(
+                    `${import.meta.env.VITE_API_URL}/auth/refresh`,
+                    {},
+                    { withCredentials: true }
+                );
 
                 const { accessToken } = data;
                 localStorage.setItem('token', accessToken);
-
                 originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+
                 return api(originalRequest);
             } catch (refreshError) {
                 localStorage.removeItem('token');
-                window.location.href = '/';
+                window.location.href = '/login';
                 return Promise.reject(refreshError);
             }
         }

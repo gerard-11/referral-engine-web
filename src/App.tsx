@@ -13,15 +13,17 @@ function App() {
 
   return (
     <Routes>
+        <Route path="/" element={<HomePage />} />
             <Route element={<MainLayout/>}>
-                <Route path="/" element={<HomePage />} />
+
                 <Route path="/agent/:agentCode" element={<AgentProfilePage />} />
                 <Route element={<ProtectedRoute />}>
                     <Route path="/profile" element={<ProfilePage/>} />
                 </Route>
-            </Route>
+
                  <Route path="/login" element={<LoginPage/>} />
                  <Route path="/register" element={<RegisterPage/>} />
+            </Route>
     </Routes>
   )
 }

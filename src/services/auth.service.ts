@@ -23,4 +23,8 @@ export class AuthService {
     static async me() {
         return api.get('/auth/me');
     }
+
+    static async logout() {
+        return api.post('/auth/logout');
+    }
 }
