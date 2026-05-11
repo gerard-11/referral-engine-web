@@ -5,6 +5,9 @@ import { LeadsTable } from "../../features/questions/components/LeadsTable";
 import { LeadDetail } from "../../features/questions/components/LeadDetail";
 import { useLeads } from "../../features/questions/hooks/useLeads";
 import type { LeadResponse } from "../../features/questions/services/leads.service";
+import { useAgent } from "../../features/agents/hooks/useAgent";
+import { AgentProfileForm } from "../../features/agents/components/AgentProfileForm";
+
 
 interface AgentDashboardProps {
     referrals: Referral[];
@@ -13,20 +16,20 @@ interface AgentDashboardProps {
     user?: User | null;
 }
 
-type TabType = "clients" | "questions" | "results"
+type TabType = "clients" | "questions" | "results" | "profile"
 
-export const AgentDashboard = ({ referrals }: AgentDashboardProps) => {
+export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
 
     const [activeTab, setActiveTab] = useState<TabType>("clients");
     const [selectedClient, setSelectedClient] = useState<Referral | null>(null);
     const [selectedLead, setSelectedLead] = useState<LeadResponse | null>(null);
     const { data: leadsData, isLoading: isLoadingLeads } = useLeads();
+    const agentCode = user?.agentCode ?? null;
+    const { data: agent } = useAgent(agentCode);
 
     const clientLeads = selectedClient
         ? leadsData?.data.filter(lead => lead.clientId === selectedClient.id) || []
         : [];
-
-
 
     return (
         <section className="space-y-6">
@@ -60,6 +63,16 @@ export const AgentDashboard = ({ referrals }: AgentDashboardProps) => {
                     }`}
                 >
                     Mis Resultados
+                </button>
+                <button
+                    onClick={() => setActiveTab("profile")}
+                    className={`px-4 py-3 font-medium border-b-2 transition-colors ${
+                        activeTab === "profile"
+                            ? "border-blue-600 text-blue-600"
+                            : "border-transparent text-gray-600 hover:text-gray-800"
+                    }`}
+                >
+                    Mi Perfil
                 </button>
             </div>
 
@@ -190,6 +203,12 @@ export const AgentDashboard = ({ referrals }: AgentDashboardProps) => {
 
             {activeTab === "results" && (
                 <LeadsTable leads={leadsData?.data || []} isLoading={isLoadingLeads} />
+            )}
+
+            {activeTab === "profile" && agent && (
+                <div className="max-w-2xl">
+                    <AgentProfileForm agent={agent} />
+                </div>
             )}
         </section>
     );

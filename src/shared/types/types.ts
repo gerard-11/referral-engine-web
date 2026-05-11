@@ -12,20 +12,21 @@ export interface User {
     email: string;
     role: Role;
     referralCode?: string;
-    agentId?: string;
     clientScore?: {
         greenLeads: number;
     };
+    agentCode?: string;
     agent?:{
         name: string;
         email: string;
-        agentCode?: string;
+        agentCode?: string | null | undefined;
         id?: string;
-    }
+    } | undefined;
 }
 
 export interface LoginResponse {
     accessToken: string;
+    agentCode: string;
 }
 
 export interface RegisterCredentials {

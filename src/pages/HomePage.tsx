@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuthStore } from '../features/auth/store/auth.store';
 import { useAgent } from '../features/agents/hooks/useAgent';
+import { AgentPublicProfile } from '../features/agents/components/AgentPublicProfile';
 
 export const HomePage = () => {
     const navigate = useNavigate();
@@ -39,7 +40,7 @@ export const HomePage = () => {
 
                 {!agent ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-                        {/* Section 1: Buscar Agente */}
+
                         <div className="bg-white p-5 sm:p-6 md:p-8 rounded-lg sm:rounded-xl shadow-lg border border-gray-100">
                             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-4">¿Buscas un Agente?</h2>
                             <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">Ingresa el código del agente para ver su perfil y ser un referido</p>
@@ -68,7 +69,6 @@ export const HomePage = () => {
                             </div>
                         </div>
 
-                        {/* Section 2: Crear Cuenta */}
                         <div className="bg-white p-5 sm:p-6 md:p-8 rounded-lg sm:rounded-xl shadow-lg border border-gray-100">
                             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-4">¿Eres Nuevo?</h2>
                             <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">Crea tu cuenta para empezar a referir o gestionar referidos</p>
@@ -104,33 +104,10 @@ export const HomePage = () => {
                                 </button>
                             </div>
                         ) : (
-                            <div className="space-y-4 sm:space-y-6">
-                                <div className="text-center">
-                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{agent.name}</h2>
-                                    {agent.bio && (
-                                        <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 px-2">{agent.bio}</p>
-                                    )}
-                                    <div className="bg-blue-50 p-3 sm:p-4 rounded-lg border border-blue-200 inline-block mb-3 sm:mb-4">
-                                        <p className="text-xs text-gray-600 uppercase tracking-wider mb-1">Código de Referral</p>
-                                        <code className="text-base sm:text-lg font-mono font-bold text-blue-600">{agent.referralCode}</code>
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col gap-2 sm:gap-3">
-                                    <button
-                                        onClick={() => setAgentCode(null)}
-                                        className="w-full px-4 sm:px-6 py-3 border-2 border-gray-300 hover:border-gray-400 active:bg-gray-50 text-gray-700 text-sm sm:text-base font-semibold rounded-lg transition-colors"
-                                    >
-                                        Buscar Otro
-                                    </button>
-                                    <button
-                                        onClick={() => navigate('/register')}
-                                        className="w-full px-4 sm:px-6 py-3 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white text-sm sm:text-base font-semibold rounded-lg transition-colors"
-                                    >
-                                        Convertirme en Cliente
-                                    </button>
-                                </div>
-                            </div>
+                            <AgentPublicProfile
+                                agent={agent}
+                                onSearchAnother={() => setAgentCode(null)}
+                            />
                         )}
                     </div>
                 )}
