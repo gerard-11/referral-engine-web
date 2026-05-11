@@ -13,13 +13,11 @@ interface QuestionsFormProps {
 
 const createAnswersSchema = (questionIds: string[]) =>
     z.object({
-        answers: z.record(
-            z.string(),
-            z.number().refine((val) => val === 0 || val === 1, 'Debes responder todas las preguntas')
-        ).refine(
-            (answers) => questionIds.every((id) => id in answers && answers[id] !== undefined),
-            'Debes responder todas las preguntas'
-        ),
+        answers: z.record(z.string(), z.union([z.literal(0), z.literal(1)]))
+            .refine(
+                (answers) => questionIds.every((id) => id in answers && (answers[id] === 0 || answers[id] === 1)),
+                'Debes responder todas las preguntas'
+            ),
     });
 
 export const QuestionsForm = ({
@@ -35,19 +33,23 @@ export const QuestionsForm = ({
     const {
         handleSubmit,
         watch,
-        formState: { errors, isValid },
+        formState: { errors },
         setValue,
     } = useForm<AnswersFormData>({
         resolver: zodResolver(answersSchema),
+        mode: 'onChange',
         defaultValues: {
             answers: questionIds.reduce(
                 (acc, id) => ({ ...acc, [id]: undefined }),
-                {}
+                {} as Record<string, 0 | 1 | undefined>
             ),
         },
     });
 
     const answers = watch('answers');
+
+    const isAllAnswered = questions.length > 0 &&
+        questions.every((q) => answers[q.id] === 0 || answers[q.id] === 1);
 
     const handleSubmitForm = (formData: AnswersFormData) => {
         const answersList = questions.map((question) => ({
@@ -67,7 +69,7 @@ export const QuestionsForm = ({
 
     return (
         <form onSubmit={handleSubmit(handleSubmitForm)} className="space-y-6">
-            <div className="bg-blue-50 p-4 rounded-xl border border-blue-200">
+            <div className="bg-blue-50 p-4 rounded-xl border border-blue-200 ">
                 <h4 className="text-sm font-semibold text-gray-700 mb-2">Resumen del Referido</h4>
                 <div className="space-y-1 text-sm">
                     <p>
@@ -126,7 +128,7 @@ export const QuestionsForm = ({
 
             <button
                 type="submit"
-                disabled={isLoading || !isValid}
+                disabled={isLoading || !isAllAnswered}
                 className="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-xl hover:bg-green-700 transition-all shadow-lg shadow-green-200 disabled:bg-gray-300 disabled:shadow-none disabled:cursor-not-allowed"
             >
                 {isLoading ? (

@@ -10,7 +10,7 @@ interface AgentDashboardProps {
     referrals: Referral[];
     onSelect: (referral: Referral) => void;
     selectedReferral: Referral | null;
-    user?: User;
+    user?: User | null;
 }
 
 type TabType = "clients" | "questions" | "results"

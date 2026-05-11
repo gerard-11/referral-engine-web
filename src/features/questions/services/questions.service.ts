@@ -12,7 +12,7 @@ export const createQuestion = async (data: { text: string; weight: number }) => 
 };
 
 export const updateQuestion = async (id: string, data: { text: string; weight: number; isActive: boolean }) => {
-    const response = await api.put(`/questions/${id}`, data);
+    const response = await api.patch(`/questions/${id}`, data);
     return response.data;
 };
 
@@ -21,6 +21,6 @@ export const deleteQuestion = async (id: string) => {
 };
 
 export const getAgentQuestions = async (agentId: string): Promise<Question[]> => {
-    const response = await api.get(`/agents/${agentId}/questions`);
+    const response = await api.get(`questions/agent/${agentId}`);
     return response.data;
 };

@@ -20,6 +20,7 @@ export interface User {
         name: string;
         email: string;
         agentCode?: string;
+        id?: string;
     }
 }
 
@@ -63,7 +64,7 @@ export interface Question {
     agentId: string;
     text: string;
     weight: number;
-    isActive: boolean;
+    isActive?: boolean;
     createdAt: string;
 }
 

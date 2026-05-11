@@ -10,13 +10,15 @@ import type { LeadInput } from "../../features/questions/services/leads.service"
 export const ClientDashboard = () => {
     const user = useAuthStore((state) => state.user);
     const greenLeads = user?.clientScore?.greenLeads || 0;
-
+console.log(greenLeads);
+console.log(user);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [step, setStep] = useState(1);
     const [referralData, setReferralData] = useState<{ name: string; email: string; phone: string } | null>(null);
 
-    const { data: questions = [] } = useAgentQuestions(user?.agentId);
+    const { data: questions = [] } = useAgentQuestions(user?.agent?.id);
     const { mutate: createLead, isPending: isCreatingLead } = useLead();
+    console.log(questions)
 
     const handleOpenModal = () => {
         setIsModalOpen(true);

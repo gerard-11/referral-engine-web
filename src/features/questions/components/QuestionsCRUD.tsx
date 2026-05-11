@@ -17,9 +17,11 @@ export const QuestionsCRUD = () => {
             return true;
         } catch (error: any) {
             const newErrors: { [key: string]: string } = {};
-            error.errors.forEach((err: any) => {
-                newErrors[err.path[0]] = err.message;
-            });
+            if (error.issues) {
+                error.issues.forEach((err: any) => {
+                    newErrors[err.path[0]] = err.message;
+                });
+            }
             setErrors(newErrors);
             return false;
         }
