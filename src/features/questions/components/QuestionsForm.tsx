@@ -26,6 +26,7 @@ export const QuestionsForm = ({
     onSubmit,
     isLoading,
 }: QuestionsFormProps) => {
+
     const questionIds = questions.map((q) => q.id);
     const answersSchema = createAnswersSchema(questionIds);
     type AnswersFormData = z.infer<typeof answersSchema>;
@@ -48,8 +49,8 @@ export const QuestionsForm = ({
 
     const answers = watch('answers');
 
-    const isAllAnswered = questions.length > 0 &&
-        questions.every((q) => answers[q.id] === 0 || answers[q.id] === 1);
+    const isAllAnswered = questions.length > 0 && questions
+            .every((q) => answers[q.id] === 0 || answers[q.id] === 1);
 
     const handleSubmitForm = (formData: AnswersFormData) => {
         const answersList = questions.map((question) => ({
@@ -120,7 +121,7 @@ export const QuestionsForm = ({
                 ))}
             </div>
 
-            {errors.answers && (
+            {errors.answers && typeof errors.answers.message === 'string' && (
                 <p className="text-sm text-red-500 font-medium bg-red-50 p-3 rounded-lg">
                     {errors.answers.message}
                 </p>

@@ -5,20 +5,26 @@ import { AddReferralForm } from "../../features/referrals/components/AddReferral
 import { useAgentQuestions } from "../../features/questions/hooks/useAgentQuestions";
 import { QuestionsForm } from "../../features/questions/components/QuestionsForm";
 import { useLead } from "../../features/questions/hooks/useLead";
+import { useClientLeads } from "../../features/questions/hooks/useClientLeads";
 import type { LeadInput } from "../../features/questions/services/leads.service";
 
 export const ClientDashboard = () => {
     const user = useAuthStore((state) => state.user);
     const greenLeads = user?.clientScore?.greenLeads || 0;
-console.log(greenLeads);
-console.log(user);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [step, setStep] = useState(1);
     const [referralData, setReferralData] = useState<{ name: string; email: string; phone: string } | null>(null);
 
     const { data: questions = [] } = useAgentQuestions(user?.agent?.id);
     const { mutate: createLead, isPending: isCreatingLead } = useLead();
-    console.log(questions)
+    const { data: clientLeadsData, isLoading: isLoadingLeads } = useClientLeads();
+
+    const leads = clientLeadsData?.data || [];
+    const sortedLeads = [
+        ...leads.filter(l => l.status === 'GREEN'),
+        ...leads.filter(l => l.status === 'YELLOW'),
+        ...leads.filter(l => l.status === 'RED'),
+    ];
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -69,6 +75,55 @@ console.log(user);
                         + Agregar Referido
                     </button>
                 </div>
+            </section>
+
+            <section className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h3 className="text-xl font-bold text-gray-800 mb-6">Mis Referidos</h3>
+
+                {isLoadingLeads ? (
+                    <p className="text-center text-gray-500">Cargando referidos...</p>
+                ) : sortedLeads.length === 0 ? (
+                    <p className="text-center text-gray-500 py-8">Aún no tienes referidos. ¡Agrega uno!</p>
+                ) : (
+                    <div className="space-y-3">
+                        {sortedLeads.map((lead) => (
+                            <div
+                                key={lead.leadId}
+                                className={`p-4 rounded-lg border-l-4 flex justify-between items-center ${
+                                    lead.status === 'GREEN'
+                                        ? 'bg-green-50 border-l-green-500'
+                                        : lead.status === 'YELLOW'
+                                        ? 'bg-yellow-50 border-l-yellow-500 opacity-75'
+                                        : 'bg-red-50 border-l-red-500 opacity-50'
+                                }`}
+                            >
+                                <div>
+                                    <p className="font-semibold text-gray-800">{lead.name}</p>
+                                    <p className="text-sm text-gray-600">{lead.email}</p>
+                                    <p className="text-xs text-gray-500 mt-1">{lead.phone}</p>
+                                </div>
+                                <div className="flex flex-col items-end gap-2">
+                                    <span
+                                        className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                                            lead.status === 'GREEN'
+                                                ? 'bg-green-200 text-green-800'
+                                                : lead.status === 'YELLOW'
+                                                ? 'bg-yellow-200 text-yellow-800'
+                                                : 'bg-red-200 text-red-800'
+                                        }`}
+                                    >
+                                        {lead.status === 'GREEN' ? '✓ Válido' : lead.status === 'YELLOW' ? '⊘ En revisión' : '✗ Rechazado'}
+                                    </span>
+                                    {lead.status !== 'GREEN' && (
+                                        <p className="text-xs text-gray-500 italic">
+                                            {lead.status === 'YELLOW' ? 'No cuenta para recompensas' : 'No cuenta para recompensas'}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </section>
 
             <Modal
