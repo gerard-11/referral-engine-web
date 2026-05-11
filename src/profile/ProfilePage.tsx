@@ -9,11 +9,11 @@ export const ProfilePage = () => {
     const user = useAuthStore((state) => state.user);
     const role = user?.role;
     const agentCode=user?.agent
-console.log(agentCode)
-    const { data: referrals, isLoading } = useReferrals(user?.id);
+
+const { data: referrals, isLoading } = useReferrals(user?.id);
     const [selectedReferral, setSelectedReferral] = useState<Referral | null>(null);
     const [copied, setCopied] = useState(false);
-console.log(user)
+
     const handleCopyCode = () => {
         if (user?.referralCode) {
             navigator.clipboard.writeText(user.referralCode);
