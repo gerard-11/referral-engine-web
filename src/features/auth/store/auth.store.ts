@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import type {LoginCredentials, LoginResponse, RegisterCredentials, User} from '../../../shared/types/types.ts';
 import { AuthService } from '../../../services/auth.service.ts';
+import { clearAuthCookies } from '../../../shared/utils/cookies.ts';
 
 interface AuthState {
     user: User | null;
@@ -26,11 +27,12 @@ export const useAuthStore = create<AuthState>((set) => ({
 
         try {
             set({ isLoading: true });
-            const response = await AuthService.me();
+            const response = await AuthService.me(token);
             set({ user: response.data, isLoading: false });
         } catch  {
             set({ user: null, accessToken: null, isLoading: false });
             localStorage.removeItem('token');
+            clearAuthCookies();
         }
     },
 
@@ -39,10 +41,9 @@ export const useAuthStore = create<AuthState>((set) => ({
             set({ isLoading: true, error: null });
 
             const response = await AuthService.login(data);
-
             const { accessToken } = response.data as LoginResponse;
             localStorage.setItem('token', accessToken);
-            const me= await AuthService.me();
+            const me= await AuthService.me(accessToken);
             const user= me.data
             
             set({
@@ -51,6 +52,7 @@ export const useAuthStore = create<AuthState>((set) => ({
                 user
             });
         } catch (error:any) {
+            console.log(error.message);
             set({
                 error: error.response?.data?.message || 'Error al iniciar sesión',
                 isLoading: false,
@@ -61,12 +63,13 @@ export const useAuthStore = create<AuthState>((set) => ({
     register: async (data) => {
         try {
             set({ isLoading: true, error: null });
-            const registerRes=await AuthService.register(data);
-            const user= registerRes.data;
+           await AuthService.register(data);
             const loginRes = await AuthService.login({
                 email: data.email,
                 password: data.password,
             });
+            const me= await AuthService.me();
+            const user= me.data;
             const { accessToken } = loginRes.data;
 
             localStorage.setItem('token', accessToken);
@@ -91,6 +94,7 @@ export const useAuthStore = create<AuthState>((set) => ({
             console.error('Error en logout:', error);
         } finally {
             localStorage.removeItem('token');
+            clearAuthCookies();
             set({
                 user: null,
                 accessToken: null,

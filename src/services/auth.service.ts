@@ -20,8 +20,12 @@ export class AuthService {
         return api.post('/auth/refresh');
     }
 
-    static async me() {
-        return api.get('/auth/me');
+    static async me(accessToken?: string) {
+        return api.get('/auth/me',{
+            headers: accessToken
+            ? { Authorization: `Bearer ${accessToken}` }
+                :undefined
+        });
     }
 
     static async logout() {

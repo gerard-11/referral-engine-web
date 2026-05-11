@@ -41,7 +41,7 @@ export const Navbar = () => {
                 {user && (
                     <>
                         <li className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg border border-white/20">
-                            <span className="text-amber-400">●</span>
+                            <span className="text-green-400 text-2xl">●</span>
                             <span className="font-semibold">{capitalizeFullName(user.name)}</span>
                         </li>
                         <li>

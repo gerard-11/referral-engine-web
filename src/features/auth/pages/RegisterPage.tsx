@@ -4,10 +4,8 @@ import * as React from "react";
 import {useNavigate} from "react-router-dom";
 
 export const RegisterPage = () => {
-
     const navigate=useNavigate();
     const { register, isLoading, error } = useAuthStore();
-    const [referralCode, setReferralCode] = useState(false);
 
     const [form, setForm] = useState({
         name: '',
@@ -73,8 +71,7 @@ export const RegisterPage = () => {
                         required
                     />
                 </div>
-                <button className=" mt-5 mb-5 cursor-pointer" onClick={()=>setReferralCode(prev=>!prev)}>tengo u codigo de refrerdio </button>
-                {referralCode && (
+
                     <div className="mb-4">
                         <label className=" mb-1 ">Codigo de Referido</label>
                         <input
@@ -86,7 +83,7 @@ export const RegisterPage = () => {
                             required
                         />
                     </div>
-                )}
+
 
 
                 {error && (
