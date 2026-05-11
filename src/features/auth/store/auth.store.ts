@@ -41,7 +41,7 @@ export const useAuthStore = create<AuthState>((set) => ({
             set({ isLoading: true, error: null });
 
             const response = await AuthService.login(data);
-            const { accessToken } = response.data as LoginResponse;
+            const { accessToken} = response.data as LoginResponse;
             localStorage.setItem('token', accessToken);
             const me= await AuthService.me(accessToken);
             const user= me.data

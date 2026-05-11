@@ -39,11 +39,13 @@ async function doRefresh(): Promise<string> {
 }
 
 api.interceptors.request.use(async (config) => {
-    const isAuthRoute =
-        config.url?.includes('/auth/') ||
+    const isPublicAuthRoute =
+        config.url?.includes('/auth/login') ||
+        config.url?.includes('/auth/register') ||
+        config.url?.includes('/auth/refresh') ||
         config.url?.includes('/users/register');
 
-    if (isAuthRoute) return config;
+    if (isPublicAuthRoute) return config;
 
     let token = localStorage.getItem('token');
 
@@ -67,14 +69,17 @@ api.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
-        const isAuthRoute =
-            originalRequest.url?.includes('/auth/') ||
+        const isPublicAuthRoute =
+            originalRequest.url?.includes('/auth/login') ||
+            originalRequest.url?.includes('/auth/register') ||
+            originalRequest.url?.includes('/auth/refresh') ||
+            originalRequest.url?.includes('/auth/logout') ||
             originalRequest.url?.includes('/users/register');
 
         if (
             error.response?.status === 401 &&
             !originalRequest._retry &&
-            !isAuthRoute
+            !isPublicAuthRoute
         ) {
             originalRequest._retry = true;
 
