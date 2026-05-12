@@ -39,7 +39,7 @@ return (
                 </h1>
 
                 <p className="text-gray-600 mt-2">
-                    Bienvenido, <span className="font-semibold text-blue-600">{user?.name}</span> 
+                    Bienvenido, <span className="font-semibold text-blue-600 capitalize">{user?.name}</span> 
                     <span className="ml-2 px-2 py-1 bg-gray-200 text-gray-700 text-xs rounded-full uppercase tracking-wider font-bold">
                         {role}
                     </span>

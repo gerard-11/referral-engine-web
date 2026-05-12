@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../../../shared/services/api';
+import { useAuthStore } from '../../auth/store/auth.store.ts';
 
 interface UpdateAgentProfileDto {
     name?: string;
@@ -16,8 +17,12 @@ export const useUpdateAgentProfile = () => {
             const response = await api.patch('/agents/profile', data);
             return response.data;
         },
-        onSuccess: (_, variables) => {
-            queryClient.invalidateQueries({ queryKey: ['agent'] });
+        onSuccess: (updatedUserData) => {
+            useAuthStore.setState({ user: updatedUserData });
+            queryClient.invalidateQueries({
+                queryKey: ['agent'],
+                exact: false,
+            });
         },
     });
 };
