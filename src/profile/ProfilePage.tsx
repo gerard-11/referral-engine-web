@@ -44,9 +44,9 @@ export const ProfilePage = () => {
     };
 
     return (
-        <div className="min-h-screen flex bg-gray-100 font-sans">
-            <main className="flex-1 p-4 md:p-8">
-                <header className="mb-4 md:mb-8 border-b border-gray-200 pb-4">
+        <div className="min-h-screen flex flex-col md:flex-row bg-gray-100 font-sans">
+            <main className="flex-1 w-full md:w-auto p-4 md:p-8">
+                <header className="mb-1 md:mb-8 border-b border-gray-200 pb-4">
                     <h1 className="text-3xl font-extrabold text-gray-900">
                         {role === 'AGENT' && 'Panel de Agente'}
                     </h1>
@@ -59,10 +59,10 @@ export const ProfilePage = () => {
                     </p>
                     {role === 'CLIENT' &&(
 
-                        <div className="bg-blue-50 p-4 md:p-6 rounded-xl w-full md:w-65 shadow-sm border mt-2 border-blue-200">
+                        <div className="bg-blue-50 p-4 md:p-6 rounded-xl max-w-full md:max-w-sm shadow-sm border mt-2 border-blue-200">
                             <p className="text-xs text-gray-600 uppercase tracking-wider mb-3 ">comparte este codigo con tus referidos</p>
-                            <div className="flex items-center gap-2">
-                                <code className="flex-1 bg-white px-3 py-2 rounded text-sm font-mono font-bold text-blue-600 border border-blue-100">
+                            <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2">
+                                <code className="flex-1 bg-white px-3 py-2 rounded text-xs md:text-sm font-mono font-bold text-blue-600 border border-blue-100">
                                     {agentCode?.agentCode}
                                 </code>
                                 <button
@@ -74,10 +74,10 @@ export const ProfilePage = () => {
                         </div>
                     )}
                     {role === "AGENT" && (
-                        <div className="bg-blue-50 p-4 md:p-6 rounded-xl w-full md:w-65 shadow-sm border mt-2 border-blue-200">
+                        <div className="bg-blue-50 p-4 md:p-6 rounded-xl max-w-full md:max-w-sm shadow-sm border mt-2 border-blue-200">
                             <p className="text-xs text-gray-600 uppercase tracking-wider mb-3 font-semibold">Tu Código de Referral</p>
-                            <div className="flex items-center gap-2">
-                                <code className="flex-1 bg-white px-3 py-2 rounded text-sm font-mono font-bold text-blue-600 border border-blue-100">
+                            <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2">
+                                <code className="flex-1 bg-white px-3 py-2 rounded text-xs md:text-sm font-mono font-bold text-blue-600 border border-blue-100">
                                     {user?.referralCode}
                                 </code>
                                 <button

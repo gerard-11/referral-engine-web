@@ -84,7 +84,7 @@ export const AgentDetailPage = () => {
                 </div>
             )}
 
-            <div>
+            <div className="w-full">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">
                     Clientes y Referidos
                 </h3>

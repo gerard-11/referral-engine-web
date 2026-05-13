@@ -39,7 +39,7 @@ export const ClientsList = ({ clients, leads = [] }: ClientsListProps) => {
     }
 
     return (
-        <div className="space-y-3 px-4 md:px-0">
+        <div className="space-y-3  w-full md:px-0">
             {clients.map((client) => {
                 const clientLeads = getClientLeads(client.id);
                 const isExpanded = expandedClientId === client.id;

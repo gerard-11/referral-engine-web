@@ -31,11 +31,11 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
         : [];
 
     return (
-        <section className="space-y-6">
-            <div className="flex gap-2 border-b border-gray-200">
+        <section className="space-y-4 md:space-y-6">
+            <div className="flex gap-1 md:gap-2 border-b border-gray-200 overflow-x-auto">
                 <button
                     onClick={() => setActiveTab("clients")}
-                    className={`px-4 py-3 font-medium border-b-2 transition-colors ${
+                    className={`px-2 md:px-4 py-2 md:py-3 font-medium border-b-2 transition-colors text-xs md:text-sm whitespace-nowrap ${
                         activeTab === "clients"
                             ? "border-blue-600 text-blue-600"
                             : "border-transparent text-gray-600 hover:text-gray-800"
@@ -45,7 +45,7 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
                 </button>
                 <button
                     onClick={() => setActiveTab("questions")}
-                    className={`px-4 py-3 font-medium border-b-2 transition-colors ${
+                    className={`px-2 md:px-4 py-2 md:py-3 font-medium border-b-2 transition-colors text-xs md:text-sm whitespace-nowrap ${
                         activeTab === "questions"
                             ? "border-blue-600 text-blue-600"
                             : "border-transparent text-gray-600 hover:text-gray-800"
@@ -55,7 +55,7 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
                 </button>
                 <button
                     onClick={() => setActiveTab("results")}
-                    className={`px-4 py-3 font-medium border-b-2 transition-colors ${
+                    className={`px-2 md:px-4 py-2 md:py-3 font-medium border-b-2 transition-colors text-xs md:text-sm whitespace-nowrap ${
                         activeTab === "results"
                             ? "border-blue-600 text-blue-600"
                             : "border-transparent text-gray-600 hover:text-gray-800"
@@ -65,7 +65,7 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
                 </button>
                 <button
                     onClick={() => setActiveTab("profile")}
-                    className={`px-4 py-3 font-medium border-b-2 transition-colors ${
+                    className={`px-2 md:px-4 py-2 md:py-3 font-medium border-b-2 transition-colors text-xs md:text-sm whitespace-nowrap ${
                         activeTab === "profile"
                             ? "border-blue-600 text-blue-600"
                             : "border-transparent text-gray-600 hover:text-gray-800"
@@ -76,13 +76,13 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
             </div>
 
             {activeTab === "clients" && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                 <div className="md:col-span-1">
-                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 sticky top-6">
-                        <h3 className="text-lg font-semibold text-gray-700 mb-4">Mis Clientes</h3>
+                    <div className="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-gray-100 sticky top-6">
+                        <h3 className="text-base md:text-lg font-semibold text-gray-700 mb-4">Mis Clientes</h3>
                         <div className="space-y-2">
                             {referrals.length === 0 ? (
-                                <p className="text-sm text-gray-500 italic">No hay clientes registrados.</p>
+                                <p className="text-xs md:text-sm text-gray-500 italic">No hay clientes registrados.</p>
                             ) : (
                                 <ul className="space-y-2">
                                     {referrals.map((client) => (
@@ -92,14 +92,14 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
                                                 setSelectedClient(client);
                                                 setSelectedLead(null);
                                             }}
-                                            className={`p-3 rounded-lg cursor-pointer transition-colors ${
+                                            className={`p-2 md:p-3 rounded-lg cursor-pointer transition-colors ${
                                                 selectedClient?.id === client.id
                                                     ? 'bg-blue-100 border-l-4 border-blue-600'
                                                     : 'hover:bg-gray-50'
                                             }`}
                                         >
-                                            <p className="text-sm font-medium text-gray-800">{client.name}</p>
-                                            <p className="text-xs text-gray-500">{client.email}</p>
+                                            <p className="text-xs md:text-sm font-medium text-gray-800 truncate">{client.name}</p>
+                                            <p className="text-xs text-gray-500 truncate">{client.email}</p>
                                         </li>
                                     ))}
                                 </ul>
@@ -108,21 +108,21 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
                     </div>
                 </div>
 
-                <div className="md:col-span-2 space-y-6">
+                <div className="md:col-span-2 space-y-4 md:space-y-6">
 
 
                     {selectedClient && !selectedLead && (
                         <>
-                            <div className="bg-blue-50 p-6 rounded-xl shadow-sm border border-blue-100 animate-fade-in">
-                                <h3 className="text-lg font-semibold text-blue-800 mb-2">Detalles del Cliente</h3>
+                            <div className="bg-blue-50 p-4 md:p-6 rounded-xl shadow-sm border border-blue-100 animate-fade-in">
+                                <h3 className="text-base md:text-lg font-semibold text-blue-800 mb-2">Detalles del Cliente</h3>
                                 <div className="space-y-1">
-                                    <p className="text-blue-900 font-bold text-xl">{selectedClient.name}</p>
-                                    <p className="text-blue-700">{selectedClient.email}</p>
+                                    <p className="text-blue-900 font-bold text-lg md:text-xl capitalize">{selectedClient.name}</p>
+                                    <p className="text-blue-700 text-sm md:text-base">{selectedClient.email}</p>
                                     <p className="text-blue-600 text-xs mt-2 italic">Registrado el: {new Date(selectedClient.createdAt).toLocaleDateString('es-ES')}</p>
                                 </div>
                             </div>
 
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                            <div className="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-gray-100">
                                 <LeadsTable
                                     leads={clientLeads}
                                     isLoading={isLoadingLeads}
@@ -138,7 +138,7 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
                         <div className="space-y-4">
                             <button
                                 onClick={() => setSelectedLead(null)}
-                                className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1"
+                                className="text-blue-600 hover:text-blue-800 text-xs md:text-sm font-medium flex items-center gap-1"
                             >
                                 ← Volver a referidos
                             </button>
@@ -147,8 +147,8 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
                     )}
 
                     {!selectedClient && (
-                        <div className="bg-gray-50 p-12 rounded-xl border border-gray-200 text-center">
-                            <p className="text-gray-500">Selecciona un cliente para ver sus referidos</p>
+                        <div className="bg-gray-50 p-8 md:p-12 rounded-xl border border-gray-200 text-center">
+                            <p className="text-sm md:text-base text-gray-500">Selecciona un cliente para ver sus referidos</p>
                         </div>
                     )}
                 </div>
@@ -164,14 +164,14 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
             )}
 
             {activeTab === "profile" && agent && (
-                <div className="max-w-2xl space-y-6">
+                <div className="max-w-2xl space-y-4 md:space-y-6">
                     {agentCode && (
-                        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 max-w-60">
-                            <p className="text-xs text-gray-600 mb-2">
+                        <div className="bg-blue-50 p-4 md:p-6 rounded-lg border border-blue-200 w-full md:max-w-60">
+                            <p className="text-xs md:text-sm text-gray-600 mb-3">
                                 Comparte este código para que puedan ver tu perfil público:
                             </p>
-                            <div className="flex items-center gap-2">
-                                <code className="flex-1 px-3 py-1 bg-white border border-blue-300 rounded text-sm font-mono font-bold text-blue-600 text-center">
+                            <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2">
+                                <code className="flex-1 px-3 py-2 md:py-1 bg-white border border-blue-300 rounded text-xs md:text-sm font-mono font-bold text-blue-600 text-center">
                                     {agentCode}
                                 </code>
                                 <button
@@ -179,7 +179,7 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
                                         navigator.clipboard.writeText(agentCode);
                                         alert('Código copiado');
                                     }}
-                                    className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium transition-colors text-xs whitespace-nowrap"
+                                    className="px-3 py-2 md:py-1 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium transition-colors text-xs md:text-sm whitespace-nowrap"
                                 >
                                     Copiar
                                 </button>
@@ -189,7 +189,7 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
 
                     {/* Editar Perfil */}
                     <div>
-                        <h3 className="text-lg font-bold text-gray-900 mb-4">Editar Perfil</h3>
+                        <h3 className="text-base md:text-lg font-bold text-gray-900 mb-4">Editar Perfil</h3>
                         <AgentProfileForm agent={agent} />
                     </div>
                 </div>

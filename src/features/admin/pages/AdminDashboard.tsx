@@ -36,7 +36,7 @@ export const AdminDashboard = () => {
     }
 
     return (
-        <div className="space-y-4 md:space-y-6 px-4 md:px-0">
+        <div className="space-y-4 md:space-y-6  md:px-0">
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                 <h2 className="text-xl md:text-2xl font-bold text-gray-900">Gestión de Agentes</h2>
                 <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
