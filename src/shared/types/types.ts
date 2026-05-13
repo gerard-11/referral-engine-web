@@ -3,7 +3,7 @@ export interface LoginCredentials {
     password: string;
 }
 
-export type Role = 'AGENT' | 'CLIENT';
+export type Role = 'AGENT' | 'CLIENT' | 'ADMIN';
 
 export interface User {
     id: string;
@@ -77,3 +77,59 @@ export interface AgentProfile {
     avatarUrl?: string;
 }
 
+export interface LeadForAdminDetail {
+    id: string;
+    name: string;
+    email: string;
+    score: number;
+    status: 'GREEN' | 'YELLOW' | 'RED';
+    createdAt: string;
+}
+
+export interface ClientForAdminDetail {
+    id: string;
+    name: string;
+    email: string;
+    role: Role;
+    createdAt: string;
+}
+
+export interface AgentForAdminList {
+    id: string;
+    name: string;
+    email: string;
+    isActive: boolean;
+    createdAt: string;
+}
+
+export interface AgentDetailForAdmin {
+    id: string;
+    name: string;
+    email: string;
+    role: Role;
+    isActive: boolean;
+    deactivatedAt: string | null;
+    deactivationReason: string | null;
+    createdAt: string;
+    clients: ClientForAdminDetail[];
+    leadsAsAgent: LeadForAdminDetail[];
+}
+
+export interface AgentCodeResponse {
+    code: string;
+    createdAt: string;
+}
+
+export interface CreateAdminUserRequest {
+    name: string;
+    email: string;
+    password: string;
+}
+
+export interface AdminUser {
+    id: string;
+    name: string;
+    email: string;
+    role: Role;
+    createdAt: string;
+}

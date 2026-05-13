@@ -26,7 +26,6 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
     const { data: leadsData, isLoading: isLoadingLeads } = useLeads();
     const agentCode = user?.agentCode ?? null;
     const { data: agent } = useAgent(agentCode);
-
     const clientLeads = selectedClient
         ? leadsData?.data.filter(lead => lead.clientId === selectedClient.id) || []
         : [];
@@ -124,54 +123,13 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
                             </div>
 
                             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                                <h3 className="text-lg font-semibold text-gray-700 mb-4">Referidos del Cliente</h3>
-                                {isLoadingLeads ? (
-                                    <p className="text-center text-gray-500">Cargando referidos...</p>
-                                ) : clientLeads.length === 0 ? (
-                                    <p className="text-center text-gray-500 py-6">Este cliente no tiene referidos aún</p>
-                                ) : (
-                                    <div className="overflow-x-auto">
-                                        <table className="w-full text-sm">
-                                            <thead>
-                                                <tr className="border-b border-gray-200">
-                                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Nombre</th>
-                                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Email</th>
-                                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Teléfono</th>
-                                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Score</th>
-                                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Estado</th>
-                                                    <th className="text-left py-3 px-4 font-medium text-gray-600">Acción</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {clientLeads.map((lead) => (
-                                                    <tr key={lead.leadId} className="border-b border-gray-100 hover:bg-gray-50">
-                                                        <td className="py-3 px-4 text-gray-800 font-medium">{lead.name}</td>
-                                                        <td className="py-3 px-4 text-gray-600">{lead.email}</td>
-                                                        <td className="py-3 px-4 text-gray-600">{lead.phone}</td>
-                                                        <td className="py-3 px-4 text-gray-800 font-semibold">{lead.score}</td>
-                                                        <td className="py-3 px-4">
-                                                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                                                                lead.status === 'GREEN' ? 'bg-green-100 text-green-700' :
-                                                                lead.status === 'YELLOW' ? 'bg-yellow-100 text-yellow-700' :
-                                                                'bg-red-100 text-red-700'
-                                                            }`}>
-                                                                {lead.status}
-                                                            </span>
-                                                        </td>
-                                                        <td className="py-3 px-4">
-                                                            <button
-                                                                onClick={() => setSelectedLead(lead)}
-                                                                className="text-blue-600 hover:text-blue-800 text-sm font-medium"
-                                                            >
-                                                                Ver detalles
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                )}
+                                <LeadsTable
+                                    leads={clientLeads}
+                                    isLoading={isLoadingLeads}
+                                    onSelectLead={setSelectedLead}
+                                    title="Referidos del Cliente"
+                                    showWrapper={false}
+                                />
                             </div>
                         </>
                     )}
