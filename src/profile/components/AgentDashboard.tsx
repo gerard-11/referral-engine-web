@@ -19,7 +19,7 @@ interface AgentDashboardProps {
 type TabType = "clients" | "questions" | "results" | "profile"
 
 export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
-
+ 
     const [activeTab, setActiveTab] = useState<TabType>("clients");
     const [selectedClient, setSelectedClient] = useState<Referral | null>(null);
     const [selectedLead, setSelectedLead] = useState<LeadResponse | null>(null);
@@ -164,8 +164,34 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
             )}
 
             {activeTab === "profile" && agent && (
-                <div className="max-w-2xl">
-                    <AgentProfileForm agent={agent} />
+                <div className="max-w-2xl space-y-6">
+                    {agentCode && (
+                        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 max-w-60">
+                            <p className="text-xs text-gray-600 mb-2">
+                                Comparte este código para que puedan ver tu perfil público:
+                            </p>
+                            <div className="flex items-center gap-2">
+                                <code className="flex-1 px-3 py-1 bg-white border border-blue-300 rounded text-sm font-mono font-bold text-blue-600 text-center">
+                                    {agentCode}
+                                </code>
+                                <button
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(agentCode);
+                                        alert('Código copiado');
+                                    }}
+                                    className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium transition-colors text-xs whitespace-nowrap"
+                                >
+                                    Copiar
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Editar Perfil */}
+                    <div>
+                        <h3 className="text-lg font-bold text-gray-900 mb-4">Editar Perfil</h3>
+                        <AgentProfileForm agent={agent} />
+                    </div>
                 </div>
             )}
         </section>

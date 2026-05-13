@@ -6,7 +6,7 @@ import {MainLayout} from "./layouts/MainLayout.tsx";
 import {ProfilePage} from "./profile/ProfilePage.tsx";
 import {ProtectedRoute} from "./shared/components/ProtectedRoute.tsx";
 import {HomePage} from "./pages/HomePage.tsx";
-import {AgentProfilePage} from "./pages/AgentProfilePage.tsx";
+import {AgentPublicProfilePage} from "./pages/AgentPublicProfilePage.tsx";
 import {AdminDashboard} from "./features/admin/pages/AdminDashboard.tsx";
 import {AgentDetailPage} from "./features/admin/pages/AgentDetailPage.tsx";
 import {ClientLeadsPage} from "./features/admin/pages/ClientLeadsPage.tsx";
@@ -19,7 +19,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
             <Route element={<MainLayout/>}>
 
-                <Route path="/agent/:agentCode" element={<AgentProfilePage />} />
+                <Route path="/agent/:agentCode" element={<AgentPublicProfilePage />} />
                 <Route element={<ProtectedRoute />}>
                     <Route path="/profile" element={<ProfilePage/>} />
                     <Route path="/admin" element={<AdminDashboard/>} />
