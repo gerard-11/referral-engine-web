@@ -9,6 +9,7 @@ import { useClientLeads } from "../../features/questions/hooks/useClientLeads";
 import type { LeadInput } from "../../features/questions/services/leads.service";
 import { useAgent } from "../../features/agents/hooks/useAgent";
 import { ReviewForm } from "../../features/agents/components/ReviewForm";
+import type { ReviewReceived } from "../../shared/types/types";
 
 export const ClientDashboard = () => {
     const user = useAuthStore((state) => state.user);
@@ -23,10 +24,8 @@ export const ClientDashboard = () => {
     const { data: agentProfile } = useAgent(user?.agent?.agentCode || null);
 
     const hasClientReview = agentProfile?.reviewsReceived?.some(
-        (review) => review.client?.name === user?.name
+        (review: ReviewReceived) => review.client?.name === user?.name
     ) || false;
-
-console.log(hasClientReview);
     const greenLeads = clientLeadsData?.data.filter(ref=> ref.status === "GREEN" ).length;
     const leads = clientLeadsData?.data || [];
     const sortedLeads = [

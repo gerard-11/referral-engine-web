@@ -69,12 +69,26 @@ export interface Question {
     createdAt: string;
 }
 
+export interface ReviewClient {
+    name: string;
+    id?: string;
+}
+
+export interface ReviewReceived {
+    id: string;
+    content: string;
+    rating: number;
+    createdAt: string;
+    client: ReviewClient;
+}
+
 export interface AgentProfile {
     id: string;
     name: string;
     referralCode: string;
     bio?: string;
     avatarUrl?: string;
+    reviewsReceived?: ReviewReceived[];
 }
 
 export interface LeadForAdminDetail {
