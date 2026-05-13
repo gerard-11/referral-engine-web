@@ -50,7 +50,7 @@ export const AgentProfilePage = () => {
                     </div>
 
                     <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
-                        <p className="text-xs text-gray-600 uppercase tracking-wider mb-2 font-semibold">Código de Referral</p>
+                        <p className="text-xs text-gray-600 uppercase tracking-wider mb-2 font-semibold">Código para tu referido</p>
                         <code className="text-2xl font-mono font-bold text-blue-600 block mb-4">{agent.referralCode}</code>
                         <button
                             onClick={() => {

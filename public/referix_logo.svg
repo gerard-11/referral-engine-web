@@ -1,0 +1,52 @@
+<svg width="100%" viewBox="0 0 680 340" role="img" xmlns="http://www.w3.org/2000/svg" style="">
+  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto">Logotipo de Referix</title>
+  <desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto">Logo moderno con ícono de red de referidos y tipografía bold para la marca Referix</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Fondo suave redondeado -->
+  <rect x="140" y="30" width="400" height="280" rx="24" fill="#EAF3DE" style="fill:rgb(234, 243, 222);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Nodo central -->
+  <circle cx="340" cy="155" r="28" fill="#3B6D11" style="fill:rgb(59, 109, 17);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Nodo arriba izquierda -->
+  <circle cx="230" cy="90" r="20" fill="#639922" style="fill:rgb(99, 153, 34);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Nodo arriba derecha -->
+  <circle cx="450" cy="90" r="20" fill="#639922" style="fill:rgb(99, 153, 34);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Nodo abajo izquierda -->
+  <circle cx="230" cy="220" r="20" fill="#639922" style="fill:rgb(99, 153, 34);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Nodo abajo derecha -->
+  <circle cx="450" cy="220" r="20" fill="#639922" style="fill:rgb(99, 153, 34);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Líneas de conexión del nodo central -->
+  <line x1="316" y1="139" x2="248" y2="104" stroke="#639922" stroke-width="2.5" stroke-linecap="round" style="fill:rgb(0, 0, 0);stroke:rgb(99, 153, 34);color:rgb(255, 255, 255);stroke-width:2.5px;stroke-linecap:round;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <line x1="364" y1="139" x2="432" y2="104" stroke="#639922" stroke-width="2.5" stroke-linecap="round" style="fill:rgb(0, 0, 0);stroke:rgb(99, 153, 34);color:rgb(255, 255, 255);stroke-width:2.5px;stroke-linecap:round;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <line x1="316" y1="171" x2="248" y2="207" stroke="#639922" stroke-width="2.5" stroke-linecap="round" style="fill:rgb(0, 0, 0);stroke:rgb(99, 153, 34);color:rgb(255, 255, 255);stroke-width:2.5px;stroke-linecap:round;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <line x1="364" y1="171" x2="432" y2="207" stroke="#639922" stroke-width="2.5" stroke-linecap="round" style="fill:rgb(0, 0, 0);stroke:rgb(99, 153, 34);color:rgb(255, 255, 255);stroke-width:2.5px;stroke-linecap:round;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Ícono persona nodo central (blanco) -->
+  <circle cx="340" cy="147" r="6" fill="white" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <path d="M328 168 Q340 160 352 168" fill="white" stroke="white" stroke-width="1" style="fill:rgb(255, 255, 255);stroke:rgb(255, 255, 255);color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Ícono persona nodos satélite (blanco) -->
+  <circle cx="230" cy="83" r="5" fill="white" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <path d="M221 98 Q230 93 239 98" fill="white" stroke="white" stroke-width="0.8" style="fill:rgb(255, 255, 255);stroke:rgb(255, 255, 255);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <circle cx="450" cy="83" r="5" fill="white" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <path d="M441 98 Q450 93 459 98" fill="white" stroke="white" stroke-width="0.8" style="fill:rgb(255, 255, 255);stroke:rgb(255, 255, 255);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <circle cx="230" cy="213" r="5" fill="white" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <path d="M221 228 Q230 223 239 228" fill="white" stroke="white" stroke-width="0.8" style="fill:rgb(255, 255, 255);stroke:rgb(255, 255, 255);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <circle cx="450" cy="213" r="5" fill="white" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <path d="M441 228 Q450 223 459 228" fill="white" stroke="white" stroke-width="0.8" style="fill:rgb(255, 255, 255);stroke:rgb(255, 255, 255);color:rgb(255, 255, 255);stroke-width:0.8px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:20px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Texto principal REFERIX -->
+  <text x="340" y="268" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="700" fill="#3B6D11" letter-spacing="6" style="fill:rgb(59, 109, 17);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:28px;font-weight:700;text-anchor:middle;dominant-baseline:auto">REFERIX</text>
+
+  <!-- Subtítulo -->
+  <text x="340" y="291" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="400" fill="#639922" letter-spacing="3" style="fill:rgb(99, 153, 34);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:sans-serif;font-size:11px;font-weight:400;text-anchor:middle;dominant-baseline:auto">REFERRAL PLATFORM</text>
+</svg>

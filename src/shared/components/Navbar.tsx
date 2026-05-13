@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import {useAuthStore} from "../../features/auth/store/auth.store.ts";
+import logo from "/referix_logo.svg";
 
 const capitalizeFullName = (name: string): string => {
     return name
@@ -15,11 +16,10 @@ export const Navbar = () => {
 
     return (
         <nav className="bg-gradient-to-r from-blue-900 via-slate-800 to-blue-950 text-white px-4 md:px-6 py-4 shadow-lg border-b-2 border-amber-600">
-            <div className="flex justify-between items-center">
-                {/* Logo y nombre */}
+            <div className="flex justify-center items-center md:justify-between">
                 <Link to="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
-                    <div className="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center font-bold text-sm">S</div>
-                    <h1 className="text-lg md:text-2xl font-serif font-bold tracking-wide">SecureReferral</h1>
+                    <img src={logo} alt="Referix" className="w-15 h-12 md:w-18 md:h-14" />
+                    <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-wide">Referix</h1>
                 </Link>
 
                 {/* Desktop Menu */}
