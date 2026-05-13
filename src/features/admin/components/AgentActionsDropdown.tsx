@@ -14,7 +14,7 @@ export const AgentActionsDropdown = ({
     agentId,
     isActive,
 }: AgentActionsDropdownProps) => {
-    const [showMenu, setShowMenu] = useState(false);
+    const [showActionsModal, setShowActionsModal] = useState(false);
     const [showDeactivateModal, setShowDeactivateModal] = useState(false);
     const [deactivateReason, setDeactivateReason] = useState('');
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
@@ -33,7 +33,7 @@ export const AgentActionsDropdown = ({
                 onSuccess: () => {
                     setShowDeactivateModal(false);
                     setDeactivateReason('');
-                    setShowMenu(false);
+                    setShowActionsModal(false);
                 },
             },
         );
@@ -42,7 +42,7 @@ export const AgentActionsDropdown = ({
     const handleReactivate = () => {
         reactivate(agentId, {
             onSuccess: () => {
-                setShowMenu(false);
+                setShowActionsModal(false);
             },
         });
     };
@@ -51,52 +51,66 @@ export const AgentActionsDropdown = ({
         deleteAgent(agentId, {
             onSuccess: () => {
                 setShowConfirmDelete(false);
-                setShowMenu(false);
+                setShowActionsModal(false);
             },
         });
     };
 
     return (
-        <div className="relative">
+        <>
             <button
-                onClick={() => setShowMenu(!showMenu)}
-                className="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded transition-colors"
+                onClick={() => setShowActionsModal(true)}
+                className="px-3 py-1 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors font-medium"
             >
-                ⋯
+                Acciones
             </button>
 
-            {showMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
-                    {isActive ? (
-                        <>
-                            <button
-                                onClick={() => {
-                                    setShowDeactivateModal(true);
-                                    setShowMenu(false);
-                                }}
-                                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b border-gray-100"
-                            >
-                                Desactivar
-                            </button>
-                            <button
-                                onClick={() => {
-                                    setShowConfirmDelete(true);
-                                    setShowMenu(false);
-                                }}
-                                className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
-                            >
-                                Eliminar permanentemente
-                            </button>
-                        </>
-                    ) : (
+            {/* Modal de acciones */}
+            {showActionsModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+                        <h3 className="text-lg font-bold mb-6 text-gray-900">
+                            Acciones del Agente
+                        </h3>
+                        <div className="space-y-3">
+                            {isActive ? (
+                                <>
+                                    <button
+                                        onClick={() => {
+                                            setShowDeactivateModal(true);
+                                            setShowActionsModal(false);
+                                        }}
+                                        className="w-full px-4 py-3 text-left bg-yellow-50 hover:bg-yellow-100 border border-yellow-200 text-yellow-800 rounded-lg transition-colors font-medium"
+                                    >
+                                        ⚠️ Desactivar Agente
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setShowConfirmDelete(true);
+                                            setShowActionsModal(false);
+                                        }}
+                                        className="w-full px-4 py-3 text-left bg-red-50 hover:bg-red-100 border border-red-200 text-red-800 rounded-lg transition-colors font-medium"
+                                    >
+                                        🗑️ Eliminar Permanentemente
+                                    </button>
+                                </>
+                            ) : (
+                                <button
+                                    onClick={handleReactivate}
+                                    disabled={isReactivating}
+                                    className="w-full px-4 py-3 text-left bg-green-50 hover:bg-green-100 border border-green-200 text-green-800 rounded-lg transition-colors font-medium disabled:opacity-50"
+                                >
+                                    {isReactivating ? '⏳ Reactivando...' : '✅ Reactivar Agente'}
+                                </button>
+                            )}
+                        </div>
                         <button
-                            onClick={handleReactivate}
-                            disabled={isReactivating}
-                            className="block w-full text-left px-4 py-2 text-sm text-green-600 hover:bg-green-50 disabled:opacity-50"
+                            onClick={() => setShowActionsModal(false)}
+                            className="w-full mt-4 px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                         >
-                            {isReactivating ? 'Reactivando...' : 'Reactivar'}
+                            Cancelar
                         </button>
-                    )}
+                    </div>
                 </div>
             )}
 
@@ -104,14 +118,17 @@ export const AgentActionsDropdown = ({
             {showDeactivateModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-                        <h3 className="text-lg font-bold mb-4">
-                            Desactivar Agente
+                        <h3 className="text-lg font-bold mb-4 text-yellow-700">
+                            ⚠️ Desactivar Agente
                         </h3>
+                        <p className="text-gray-600 mb-4 text-sm">
+                            El agente no podrá acceder a su cuenta. Puedes reactivarlo después.
+                        </p>
                         <textarea
                             value={deactivateReason}
                             onChange={(e) => setDeactivateReason(e.target.value)}
                             placeholder="Razón de desactivación"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                             rows={3}
                         />
                         <div className="flex gap-3">
@@ -124,7 +141,7 @@ export const AgentActionsDropdown = ({
                             <button
                                 onClick={handleDeactivate}
                                 disabled={isDeactivating || !deactivateReason}
-                                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:bg-gray-400 transition-colors"
+                                className="flex-1 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 disabled:bg-gray-400 transition-colors font-medium"
                             >
                                 {isDeactivating ? 'Desactivando...' : 'Desactivar'}
                             </button>
@@ -138,12 +155,16 @@ export const AgentActionsDropdown = ({
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
                         <h3 className="text-lg font-bold text-red-600 mb-4">
-                            ⚠️ Eliminar Permanentemente
+                            🗑️ Eliminar Permanentemente
                         </h3>
-                        <p className="text-gray-700 mb-6">
-                            Esta acción es irreversible. Se eliminarán el agente,
-                            sus clientes y todos los datos relacionados.
+                        <p className="text-gray-700 mb-6 text-sm">
+                            Esta acción es <span className="font-bold">irreversible</span>. Se eliminarán:
                         </p>
+                        <ul className="list-disc list-inside text-sm text-gray-600 mb-6 space-y-1">
+                            <li>El agente</li>
+                            <li>Todos sus clientes</li>
+                            <li>Todos los datos relacionados</li>
+                        </ul>
                         <div className="flex gap-3">
                             <button
                                 onClick={() => setShowConfirmDelete(false)}
@@ -154,7 +175,7 @@ export const AgentActionsDropdown = ({
                             <button
                                 onClick={handleDelete}
                                 disabled={isDeleting}
-                                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:bg-gray-400 transition-colors"
+                                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:bg-gray-400 transition-colors font-medium"
                             >
                                 {isDeleting ? 'Eliminando...' : 'Eliminar'}
                             </button>
@@ -162,6 +183,6 @@ export const AgentActionsDropdown = ({
                     </div>
                 </div>
             )}
-        </div>
+        </>
     );
 };

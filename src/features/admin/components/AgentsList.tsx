@@ -10,7 +10,7 @@ export const AgentsList = ({ agents }: AgentsListProps) => {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-white rounded-lg shadow overflow-x-auto">
             <table className="w-full">
                 <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>
@@ -37,7 +37,7 @@ export const AgentsList = ({ agents }: AgentsListProps) => {
                             <td className="px-6 py-4 text-sm font-medium text-gray-900">
                                 <button
                                     onClick={() => navigate(`/admin/agents/${agent.id}`)}
-                                    className="text-blue-600 hover:text-blue-700 underline"
+                                    className="text-blue-600 hover:text-blue-700 underline capitalize"
                                 >
                                     {agent.name}
                                 </button>
