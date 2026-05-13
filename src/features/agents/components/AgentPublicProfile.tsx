@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom';
+import { ReviewsList } from './ReviewsList';
+import type { ReviewReceived } from '../../../shared/types/types';
 
 interface Agent {
     name: string;
     bio?: string;
     referralCode: string;
     avatarUrl?: string;
+    reviewsReceived?: ReviewReceived[];
 }
 
 interface AgentPublicProfileProps {
@@ -51,6 +54,13 @@ export const AgentPublicProfile = ({ agent, onSearchAnother }: AgentPublicProfil
                     Convertirme en Cliente
                 </button>
             </div>
+
+            {agent.reviewsReceived && agent.reviewsReceived.length > 0 && (
+                <div className="mt-8 pt-8 border-t border-gray-200">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4">Reseñas de Clientes</h3>
+                    <ReviewsList reviews={agent.reviewsReceived} />
+                </div>
+            )}
         </div>
     );
 };

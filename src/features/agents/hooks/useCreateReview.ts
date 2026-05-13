@@ -7,7 +7,7 @@ export const useCreateReview = () => {
 
     return useMutation({
         mutationFn: (data: CreateReviewRequest) => createReview(data),
-        onSuccess: (_, variables) => {
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['agent'] });
         },
     });
