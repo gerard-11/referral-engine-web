@@ -62,23 +62,23 @@ export const ClientDashboard = () => {
     return (
         <div className="space-y-4 md:space-y-6">
             <section className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="bg-gradient-to-br from-green-500 to-green-600 p-3 md:p-8 rounded-xl md:rounded-2xl shadow-lg text-white">
+                <div className="bg-blue-700 p-3 md:p-8 rounded-lg shadow text-white">
                     <h3 className="text-sm md:text-lg font-medium opacity-90 uppercase tracking-wide">Tus Recompensas</h3>
                     <div className="mt-6 flex items-baseline gap-2">
                         <p className="text-4xl md:text-5xl font-extrabold">{greenLeads || 0}</p>
                         <p className="text-xs md:text-base text-green-100">Referidos Verdes</p>
                     </div>
-                    <p className="mt-6 text-xs md:text-sm bg-white/20 p-3 rounded-lg inline-block">
+                    <p className="mt-6 text-xs md:text-sm bg-blue-50/20 p-3 rounded-lg inline-block">
                         ¡Sigue así para desbloquear el siguiente nivel!
                     </p>
                 </div>
 
-                <div className="bg-white p-6 md:p-8 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center items-center text-center">
-                    <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-2">¿Tienes un nuevo referido?</h3>
-                    <p className="text-gray-500 mb-6 text-xs md:text-sm">Completa la encuesta para calificar a tu referido y ganar puntos.</p>
+                <div className="bg-blue-50 p-6 md:p-8 rounded-lg shadow border border-blue-200 flex flex-col justify-center items-center text-center">
+                    <h3 className="text-lg md:text-xl font-bold text-blue-800 mb-2">Nuevo Referido</h3>
+                    <p className="text-blue-600 mb-6 text-xs md:text-sm">Completa la encuesta para calificar a tu referido.</p>
                     <button
                         onClick={handleOpenModal}
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 md:py-3 px-6 md:px-8 rounded-full transition-all transform hover:scale-105 shadow-md text-sm md:text-base w-full md:w-auto"
+                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 md:py-3 px-6 md:px-8 rounded transition-colors text-sm md:text-base w-full md:w-auto"
                     >
                         + Agregar Referido
                     </button>
@@ -86,20 +86,20 @@ export const ClientDashboard = () => {
             </section>
 
             {!hasClientReview && user?.agent && (
-                <section className="bg-gradient-to-r from-purple-50 to-pink-50 p-6 md:p-8 rounded-xl md:rounded-2xl shadow-sm border border-purple-200">
-                    <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-2">Califica a tu Agente</h3>
-                    <p className="text-sm md:text-base text-gray-600 mb-6 capitalize">{user.agent.name ? `Comparte tu experiencia con ${user.agent.name}` : 'Comparte tu experiencia con tu agente'}</p>
+                <section className="bg-blue-50 p-6 md:p-8 rounded-lg shadow border border-blue-200">
+                    <h3 className="text-lg md:text-xl font-bold text-blue-800 mb-2">Califica a tu Agente</h3>
+                    <p className="text-sm md:text-base text-blue-600 mb-6 capitalize">{user.agent.name ? `Comparte tu experiencia con ${user.agent.name}` : 'Comparte tu experiencia con tu agente'}</p>
                     <button
                         onClick={() => setIsReviewModalOpen(true)}
-                        className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 md:py-3 px-6 md:px-8 rounded-full transition-all transform hover:scale-105 text-sm md:text-base w-full md:w-auto"
+                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 md:py-3 px-6 md:px-8 rounded transition-colors text-sm md:text-base w-full md:w-auto"
                     >
                         ⭐ Dejar Reseña
                     </button>
                 </section>
             )}
 
-            <section className="bg-white p-6 md:p-8 rounded-xl md:rounded-2xl shadow-sm border border-gray-100">
-                <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-6">Mis Referidos</h3>
+            <section className="bg-blue-50 p-6 md:p-8 rounded-lg shadow border border-blue-200">
+                <h3 className="text-lg md:text-xl font-bold text-blue-800 mb-6">Mis Referidos</h3>
 
                 {isLoadingLeads ? (
                     <p className="text-center text-sm md:text-base text-gray-500 py-8">Cargando referidos...</p>

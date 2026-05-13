@@ -72,7 +72,7 @@ export const CreateAdminForm = ({ onClose }: CreateAdminFormProps) => {
 
     return (
         <div className="fixed inset-0 bg-black/10 backdrop-blur-sm flex items-end md:items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-t-lg md:rounded-lg max-w-md w-full p-4 md:p-6">
+            <div className="bg-blue-50 rounded-t-lg md:rounded-lg max-w-md w-full p-4 md:p-6">
                 <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-gray-900">
                     Crear Nuevo Admin
                 </h2>

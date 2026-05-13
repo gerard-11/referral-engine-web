@@ -19,10 +19,11 @@ interface AgentDashboardProps {
 type TabType = "clients" | "questions" | "results" | "profile"
 
 export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
- 
+
     const [activeTab, setActiveTab] = useState<TabType>("clients");
     const [selectedClient, setSelectedClient] = useState<Referral | null>(null);
     const [selectedLead, setSelectedLead] = useState<LeadResponse | null>(null);
+    const [isCopied, setIsCopied] = useState(false);
     const { data: leadsData, isLoading: isLoadingLeads } = useLeads();
     const agentCode = user?.agentCode ?? null;
     const { data: agent } = useAgent(agentCode);
@@ -32,7 +33,7 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
 
     return (
         <section className="space-y-4 md:space-y-6">
-            <div className="flex gap-1 md:gap-2 border-b border-gray-200 overflow-x-auto">
+            <div className="flex gap-1 md:gap-2 border-b border-blue-200 overflow-x-auto">
                 <button
                     onClick={() => setActiveTab("clients")}
                     className={`px-2 md:px-4 py-2 md:py-3 font-medium border-b-2 transition-colors text-xs md:text-sm whitespace-nowrap ${
@@ -78,11 +79,11 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
             {activeTab === "clients" && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                 <div className="md:col-span-1">
-                    <div className="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-gray-100 sticky top-6">
-                        <h3 className="text-base md:text-lg font-semibold text-gray-700 mb-4">Mis Clientes</h3>
+                    <div className="bg-blue-50 p-4 md:p-6 rounded-lg shadow border border-blue-200 sticky top-6">
+                        <h3 className="text-base md:text-lg font-semibold text-blue-800 mb-4">Mis Clientes</h3>
                         <div className="space-y-2">
                             {referrals.length === 0 ? (
-                                <p className="text-xs md:text-sm text-gray-500 italic">No hay clientes registrados.</p>
+                                <p className="text-xs md:text-sm text-blue-500 italic">No hay clientes registrados.</p>
                             ) : (
                                 <ul className="space-y-2">
                                     {referrals.map((client) => (
@@ -113,7 +114,7 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
 
                     {selectedClient && !selectedLead && (
                         <>
-                            <div className="bg-blue-50 p-4 md:p-6 rounded-xl shadow-sm border border-blue-100 animate-fade-in">
+                            <div className="bg-blue-50 p-4 md:p-6 rounded-lg shadow border border-blue-200 animate-fade-in">
                                 <h3 className="text-base md:text-lg font-semibold text-blue-800 mb-2">Detalles del Cliente</h3>
                                 <div className="space-y-1">
                                     <p className="text-blue-900 font-bold text-lg md:text-xl capitalize">{selectedClient.name}</p>
@@ -122,7 +123,7 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
                                 </div>
                             </div>
 
-                            <div className="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-gray-100">
+                            <div className="bg-blue-50 p-4 md:p-6 rounded-lg shadow border border-blue-200">
                                 <LeadsTable
                                     leads={clientLeads}
                                     isLoading={isLoadingLeads}
@@ -147,8 +148,8 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
                     )}
 
                     {!selectedClient && (
-                        <div className="bg-gray-50 p-8 md:p-12 rounded-xl border border-gray-200 text-center">
-                            <p className="text-sm md:text-base text-gray-500">Selecciona un cliente para ver sus referidos</p>
+                        <div className="bg-blue-50 p-8 md:p-12 rounded-lg border border-blue-200 text-center">
+                            <p className="text-sm md:text-base text-blue-500">Selecciona un cliente para ver sus referidos</p>
                         </div>
                     )}
                 </div>
@@ -167,29 +168,34 @@ export const AgentDashboard = ({ referrals, user }: AgentDashboardProps) => {
                 <div className="max-w-2xl space-y-4 md:space-y-6">
                     {agentCode && (
                         <div className="bg-blue-50 p-4 md:p-6 rounded-lg border border-blue-200 w-full md:max-w-60">
-                            <p className="text-xs md:text-sm text-gray-600 mb-3">
-                                Comparte este código para que puedan ver tu perfil público:
+                            <p className="text-xs md:text-sm text-blue-600 mb-3 font-medium">
+                                Código para compartir tu perfil:
                             </p>
                             <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2">
-                                <code className="flex-1 px-3 py-2 md:py-1 bg-white border border-blue-300 rounded text-xs md:text-sm font-mono font-bold text-blue-600 text-center">
+                                <code className="flex-1 px-3 py-2 md:py-1 bg-blue-100 border border-blue-300 rounded text-xs md:text-sm font-mono font-bold text-blue-700 text-center">
                                     {agentCode}
                                 </code>
                                 <button
                                     onClick={() => {
                                         navigator.clipboard.writeText(agentCode);
-                                        alert('Código copiado');
+                                        setIsCopied(true);
+                                        setTimeout(() => setIsCopied(false), 2000);
                                     }}
-                                    className="px-3 py-2 md:py-1 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium transition-colors text-xs md:text-sm whitespace-nowrap"
+                                    className={`px-3 py-2 md:py-1 rounded font-medium transition-colors text-xs md:text-sm whitespace-nowrap ${
+                                        isCopied
+                                            ? 'bg-green-600 hover:bg-green-700 text-white'
+                                            : 'bg-blue-600 hover:bg-blue-700 text-white'
+                                    }`}
                                 >
-                                    Copiar
+                                    {isCopied ? 'Copiado' : 'Copiar'}
                                 </button>
                             </div>
                         </div>
                     )}
 
-                    {/* Editar Perfil */}
+
                     <div>
-                        <h3 className="text-base md:text-lg font-bold text-gray-900 mb-4">Editar Perfil</h3>
+                        <h3 className="text-base md:text-lg font-bold text-blue-900 mb-4">Editar Perfil</h3>
                         <AgentProfileForm agent={agent} />
                     </div>
                 </div>

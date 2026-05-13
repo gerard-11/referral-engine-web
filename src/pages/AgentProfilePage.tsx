@@ -17,7 +17,7 @@ export const AgentProfilePage = () => {
     if (error || !agent) {
         return (
             <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-                <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full text-center">
+                <div className="bg-blue-50 p-8 rounded-xl shadow-lg max-w-md w-full text-center">
                     <h2 className="text-2xl font-bold text-red-600 mb-4">Agente no encontrado</h2>
                     <p className="text-gray-600 mb-6">El código "{agentCode}" no existe</p>
                     <button
@@ -41,7 +41,7 @@ export const AgentProfilePage = () => {
                     ← Volver al Inicio
                 </button>
 
-                <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 space-y-6">
+                <div className="bg-blue-50 p-8 rounded-xl shadow-lg border border-gray-100 space-y-6">
                     <div className="text-center">
                         <h1 className="text-4xl font-bold text-gray-900 mb-2">{agent.name}</h1>
                         {agent.bio && (

@@ -10,7 +10,7 @@ export const AgentsList = ({ agents }: AgentsListProps) => {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-white rounded-lg shadow overflow-x-auto">
+        <div className="bg-blue-50 rounded-lg shadow overflow-x-auto">
             <table className="w-full text-sm md:text-base">
                 <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>

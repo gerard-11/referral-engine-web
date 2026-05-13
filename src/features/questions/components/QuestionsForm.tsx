@@ -91,7 +91,7 @@ export const QuestionsForm = ({
             <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-gray-700">Responde las preguntas</h3>
                 {questions.map((question) => (
-                    <div key={question.id} className="bg-white p-4 rounded-xl border border-gray-200">
+                    <div key={question.id} className="bg-blue-50 p-4 rounded-xl border border-gray-200">
                         <p className="text-gray-800 font-medium mb-3">{question.text}</p>
                         <div className="flex gap-3">
                             <button

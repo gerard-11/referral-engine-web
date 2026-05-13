@@ -56,7 +56,7 @@ export const ClientLeadsPage = () => {
                     <LeadDetail lead={selectedLead} />
                 </div>
             ) : (
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div className="bg-blue-50 p-6 rounded-xl shadow-sm border border-gray-100">
                     <LeadsTable
                         leads={clientLeads}
                         isLoading={isLoading}

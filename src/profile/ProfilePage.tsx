@@ -26,7 +26,7 @@ export const ProfilePage = () => {
 
     if (role === 'ADMIN') {
         return (
-            <div className="min-h-screen bg-gray-100 font-sans">
+            <div className="min-h-screen bg-blue-100 font-sans">
                 <main className="flex-1 p-4 md:p-8">
                     <AdminDashboard />
                 </main>
@@ -44,7 +44,7 @@ export const ProfilePage = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col md:flex-row bg-gray-100 font-sans">
+        <div className="min-h-screen flex flex-col md:flex-row bg-blue-100 font-sans">
             <main className="flex-1 w-full md:w-auto p-4 md:p-8">
                 <header className="mb-1 md:mb-8 border-b border-gray-200 pb-4">
                     <h1 className="text-3xl font-extrabold text-gray-900">
@@ -59,30 +59,30 @@ export const ProfilePage = () => {
                     </p>
                     {role === 'CLIENT' &&(
 
-                        <div className="bg-blue-50 p-4 md:p-6 rounded-xl max-w-full md:max-w-sm shadow-sm border mt-2 border-blue-200">
-                            <p className="text-xs text-gray-600 uppercase tracking-wider mb-3 ">comparte este codigo con tus referidos</p>
+                        <div className="bg-blue-50 p-4 md:p-6 rounded-lg max-w-full md:max-w-sm shadow border mt-2 border-blue-200">
+                            <p className="text-xs text-blue-600 uppercase tracking-wider mb-3 font-medium">comparte este código con tus referidos</p>
                             <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2">
-                                <code className="flex-1 bg-white px-3 py-2 rounded text-xs md:text-sm font-mono font-bold text-blue-600 border border-blue-100">
+                                <code className="flex-1 bg-blue-100 px-3 py-2 rounded text-xs md:text-sm font-mono font-bold text-blue-700 border border-blue-300">
                                     {agentCode?.agentCode}
                                 </code>
                                 <button
                                     onClick={handleCopyCode}
-                                    className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded transition-colors whitespace-nowrap"
+                                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium rounded transition-colors whitespace-nowrap"
                                 >{copied ? '✓ Copiado' : 'Copiar'}
                                 </button>
                             </div>
                         </div>
                     )}
                     {role === "AGENT" && (
-                        <div className="bg-blue-50 p-4 md:p-6 rounded-xl max-w-full md:max-w-sm shadow-sm border mt-2 border-blue-200">
-                            <p className="text-xs text-gray-600 uppercase tracking-wider mb-3 font-semibold">Tu Código de Referral</p>
+                        <div className="bg-blue-50 p-4 md:p-6 rounded-lg max-w-full md:max-w-sm shadow border mt-2 border-blue-200">
+                            <p className="text-xs text-blue-600 uppercase tracking-wider mb-3 font-semibold">Tu Código de Referido</p>
                             <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2">
-                                <code className="flex-1 bg-white px-3 py-2 rounded text-xs md:text-sm font-mono font-bold text-blue-600 border border-blue-100">
+                                <code className="flex-1 bg-blue-100 px-3 py-2 rounded text-xs md:text-sm font-mono font-bold text-blue-700 border border-blue-300">
                                     {user?.referralCode}
                                 </code>
                                 <button
                                     onClick={handleCopyCode}
-                                    className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded transition-colors whitespace-nowrap"
+                                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium rounded transition-colors whitespace-nowrap"
                                 >
                                     {copied ? '✓ Copiado' : 'Copiar'}
                                 </button>

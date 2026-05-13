@@ -25,7 +25,7 @@ export const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
     return createPortal(
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
             <div
-                className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-hidden transform transition-all scale-100 flex flex-col"
+                className="bg-blue-50 rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-hidden transform transition-all scale-100 flex flex-col"
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-center p-6 border-b border-gray-100 flex-shrink-0">

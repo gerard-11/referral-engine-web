@@ -28,7 +28,7 @@ export const ReviewForm = ({ agentId, onSuccess }: ReviewFormProps) => {
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-blue-700 mb-2">
                     Calificación
                 </label>
                 <div className="flex gap-2">
@@ -38,7 +38,7 @@ export const ReviewForm = ({ agentId, onSuccess }: ReviewFormProps) => {
                             type="button"
                             onClick={() => setRating(star)}
                             className={`text-3xl transition-colors ${
-                                star <= rating ? 'text-yellow-400' : 'text-gray-300'
+                                star <= rating ? 'text-amber-400' : 'text-blue-300'
                             }`}
                         >
                             ★
@@ -48,7 +48,7 @@ export const ReviewForm = ({ agentId, onSuccess }: ReviewFormProps) => {
             </div>
 
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-blue-700 mb-2">
                     Tu comentario
                 </label>
                 <textarea
@@ -56,7 +56,7 @@ export const ReviewForm = ({ agentId, onSuccess }: ReviewFormProps) => {
                     onChange={(e) => setContent(e.target.value)}
                     placeholder="Cuéntanos tu experiencia con este agente..."
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-blue-300 rounded bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     rows={4}
                 />
             </div>
@@ -64,7 +64,7 @@ export const ReviewForm = ({ agentId, onSuccess }: ReviewFormProps) => {
             <button
                 type="submit"
                 disabled={isPending || !content.trim()}
-                className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white rounded-lg font-medium transition-colors"
+                className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 text-white rounded font-medium transition-colors"
             >
                 {isPending ? 'Enviando...' : 'Enviar Reseña'}
             </button>

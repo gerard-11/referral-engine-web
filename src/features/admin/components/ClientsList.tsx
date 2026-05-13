@@ -32,7 +32,7 @@ export const ClientsList = ({ clients, leads = [] }: ClientsListProps) => {
 
     if (clients.length === 0) {
         return (
-            <div className="bg-white p-6 md:p-8 rounded-lg text-center text-gray-500 text-sm md:text-base">
+            <div className="bg-blue-50 p-6 md:p-8 rounded-lg text-center text-gray-500 text-sm md:text-base">
                 No hay clientes asignados
             </div>
         );
@@ -47,7 +47,7 @@ export const ClientsList = ({ clients, leads = [] }: ClientsListProps) => {
                 return (
                     <div
                         key={client.id}
-                        className="bg-white rounded-lg border border-gray-200 overflow-hidden"
+                        className="bg-blue-50 rounded-lg border border-gray-200 overflow-hidden"
                     >
                         <button
                             onClick={() =>
@@ -104,7 +104,7 @@ export const ClientsList = ({ clients, leads = [] }: ClientsListProps) => {
                                         {clientLeads.map((lead) => (
                                             <div
                                                 key={lead.leadId}
-                                                className="flex flex-col md:flex-row md:items-center md:justify-between p-2 md:p-3 bg-white rounded border border-gray-200 gap-1 md:gap-0"
+                                                className="flex flex-col md:flex-row md:items-center md:justify-between p-2 md:p-3 bg-blue-50 rounded border border-gray-200 gap-1 md:gap-0"
                                             >
                                                 <div className="flex-1 min-w-0 order-first">
                                                     <p className="font-medium text-sm text-gray-900">

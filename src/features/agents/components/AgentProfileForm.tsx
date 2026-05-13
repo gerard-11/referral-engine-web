@@ -71,29 +71,29 @@ export const AgentProfileForm = ({ agent }: AgentProfileFormProps) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Editar Perfil</h3>
+        <form onSubmit={handleSubmit} className="space-y-4 bg-blue-50 p-6 rounded-lg shadow border border-blue-200">
+            <h3 className="text-lg font-semibold text-blue-900 mb-4">Editar Perfil</h3>
 
             {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded text-sm">
                     {error instanceof Error ? error.message : 'Error al actualizar perfil'}
                 </div>
             )}
 
             {isSuccess && (
-                <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm">
+                <div className="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded text-sm">
                     Perfil actualizado exitosamente
                 </div>
             )}
 
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Foto de Perfil</label>
+                <label className="block text-sm font-medium text-blue-700 mb-1">Foto de Perfil</label>
                 {formData.avatarUrl && (
                     <div className="mb-3">
                         <img
                             src={formData.avatarUrl}
                             alt="Avatar preview"
-                            className="w-24 h-24 rounded-lg object-cover border border-gray-300"
+                            className="w-24 h-24 rounded-lg object-cover border border-blue-300 bg-blue-50"
                         />
                     </div>
                 )}
@@ -102,56 +102,56 @@ export const AgentProfileForm = ({ agent }: AgentProfileFormProps) => {
                     accept="image/*"
                     onChange={handleImageUpload}
                     disabled={isUploadingImage}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-blue-300 rounded bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
-                {isUploadingImage && <p className="text-sm text-gray-500 mt-1">Subiendo imagen...</p>}
+                {isUploadingImage && <p className="text-sm text-blue-500 mt-1">Subiendo imagen...</p>}
                 {uploadError && <p className="text-sm text-red-600 mt-1">{uploadError}</p>}
             </div>
 
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                <label className="block text-sm font-medium text-blue-700 mb-1">Nombre</label>
                 <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-blue-300 rounded bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Tu nombre"
                 />
             </div>
 
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                <label className="block text-sm font-medium text-blue-700 mb-1">Bio</label>
                 <textarea
                     name="bio"
                     value={formData.bio}
                     onChange={handleChange}
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-blue-300 rounded bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Cuéntanos sobre ti"
                 />
             </div>
 
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Avatar URL</label>
+                <label className="block text-sm font-medium text-blue-700 mb-1">Avatar URL</label>
                 <input
                     type="url"
                     name="avatarUrl"
                     value={formData.avatarUrl}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-blue-300 rounded bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="https://..."
                 />
             </div>
 
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                <label className="block text-sm font-medium text-blue-700 mb-1">Teléfono</label>
                 <input
                     type="tel"
                     name="phoneNumber"
                     value={formData.phoneNumber}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-blue-300 rounded bg-blue-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="+1 234 567 8900"
                 />
             </div>
@@ -159,7 +159,7 @@ export const AgentProfileForm = ({ agent }: AgentProfileFormProps) => {
             <button
                 type="submit"
                 disabled={isPending}
-                className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
+                className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 text-white font-medium rounded transition-colors"
             >
                 {isPending ? 'Guardando...' : 'Guardar cambios'}
             </button>

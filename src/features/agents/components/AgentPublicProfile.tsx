@@ -19,45 +19,45 @@ export const AgentPublicProfile = ({ agent, onSearchAnother }: AgentPublicProfil
     const navigate = useNavigate();
 
     return (
-        <div className="space-y-4 sm:space-y-6">
+        <div className="space-y-6 sm:space-y-8">
             <div className="text-center">
                 {agent.avatarUrl ? (
                     <img
                         src={agent.avatarUrl}
                         alt={agent.name}
-                        className="w-24 h-24 sm:w-32 sm:h-32 rounded-xl mx-auto mb-4 object-cover border-4 border-blue-200"
+                        className="w-28 h-28 sm:w-40 sm:h-40 rounded-xl mx-auto mb-6 object-cover border-4 border-blue-300 shadow-lg"
                     />
                 ) : (
-                    <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full mx-auto mb-4 bg-gray-300 border-4 border-blue-200 flex items-center justify-center">
-                        <span className="text-gray-600 text-sm">Sin foto</span>
+                    <div className="w-28 h-28 sm:w-40 sm:h-40 rounded-xl mx-auto mb-6 bg-blue-200 border-4 border-blue-300 flex items-center justify-center shadow-lg">
+                        <span className="text-blue-600 text-sm font-medium">Sin foto</span>
                     </div>
                 )}
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 capitalize">{agent.name}</h2>
+                <h1 className="text-3xl sm:text-4xl font-bold text-blue-900 mb-3 capitalize">{agent.name}</h1>
                 {agent.bio && (
-                    <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 px-2">{agent.bio}</p>
+                    <p className="text-sm sm:text-base text-blue-700 mb-6 sm:mb-8 px-2 max-w-md mx-auto leading-relaxed">{agent.bio}</p>
                 )}
             </div>
 
-            <div className="flex flex-col gap-2 sm:gap-3">
+            <div className="flex flex-col gap-3 sm:gap-4">
                 {onSearchAnother && (
                     <button
                         onClick={onSearchAnother}
-                        className="w-full px-4 sm:px-6 py-3 border-2 border-gray-300 hover:border-gray-400 active:bg-gray-50 text-gray-700 text-sm sm:text-base font-semibold rounded-lg transition-colors"
+                        className="w-full px-6 sm:px-8 py-3 sm:py-4 border-2 border-blue-600 hover:bg-blue-50 active:bg-blue-100 text-blue-700 text-sm sm:text-base font-semibold rounded-lg transition-colors"
                     >
-                        Buscar Otro
+                        Buscar Otro Agente
                     </button>
                 )}
                 <button
                     onClick={() => navigate('/register')}
-                    className="w-full px-4 sm:px-6 py-3 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white text-sm sm:text-base font-semibold rounded-lg transition-colors"
+                    className="w-full px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm sm:text-base font-semibold rounded-lg shadow-md hover:shadow-lg transition-all"
                 >
                     Convertirme en Cliente
                 </button>
             </div>
 
             {agent.reviewsReceived && agent.reviewsReceived.length > 0 && (
-                <div className="mt-8 pt-8 border-t border-gray-200">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">Reseñas de Clientes</h3>
+                <div className="mt-8 sm:mt-10 pt-8 border-t-2 border-blue-200">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-blue-900 mb-6">Testimonios de Clientes</h2>
                     <ReviewsList reviews={agent.reviewsReceived} />
                 </div>
             )}

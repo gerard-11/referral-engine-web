@@ -1,4 +1,3 @@
-import './App.css'
 import {Route, Routes} from "react-router-dom";
 import {LoginPage} from "./features/auth/pages/LoginPage.tsx";
 import {RegisterPage} from "./features/auth/pages/RegisterPage.tsx";

@@ -18,7 +18,7 @@ export const ReviewsList = ({ reviews }: ReviewsListProps) => {
             {reviews.map((review) => (
                 <div
                     key={review.id}
-                    className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
+                    className="bg-blue-50 p-6 rounded-lg border border-gray-200 shadow-sm"
                 >
                     <div className="flex items-start justify-between mb-3">
                         <div>

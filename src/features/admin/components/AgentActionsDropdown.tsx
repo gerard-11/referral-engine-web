@@ -68,7 +68,7 @@ export const AgentActionsDropdown = ({
             {/* Modal de acciones */}
             {showActionsModal && (
                 <div className="fixed inset-0 bg-black/10 backdrop-blur-sm flex items-end md:items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-t-lg md:rounded-lg p-3 md:p-6 max-w-md w-full">
+                    <div className="bg-blue-50 rounded-t-lg md:rounded-lg p-3 md:p-6 max-w-md w-full">
                         <h3 className="text-base md:text-lg font-bold mb-4 md:mb-6 text-gray-900">
                             Acciones del Agente
                         </h3>
@@ -117,7 +117,7 @@ export const AgentActionsDropdown = ({
             {/* Modal desactivar */}
             {showDeactivateModal && (
                 <div className="fixed inset-0 bg-black/10 backdrop-blur-sm flex items-end md:items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-t-lg md:rounded-lg p-4 md:p-6 max-w-md w-full">
+                    <div className="bg-blue-50 rounded-t-lg md:rounded-lg p-4 md:p-6 max-w-md w-full">
                         <h3 className="text-base md:text-lg font-bold mb-3 md:mb-4 text-yellow-700">
                             ⚠️ Desactivar Agente
                         </h3>
@@ -153,7 +153,7 @@ export const AgentActionsDropdown = ({
             {/* Modal confirmar eliminar */}
             {showConfirmDelete && (
                 <div className="fixed inset-0 bg-black/10 backdrop-blur-sm flex items-end md:items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-t-lg md:rounded-lg p-4 md:p-6 max-w-md w-full">
+                    <div className="bg-blue-50 rounded-t-lg md:rounded-lg p-4 md:p-6 max-w-md w-full">
                         <h3 className="text-base md:text-lg font-bold text-red-600 mb-4">
                             🗑️ Eliminar Permanentemente
                         </h3>
