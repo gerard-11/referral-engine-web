@@ -7,18 +7,27 @@ import { QuestionsForm } from "../../features/questions/components/QuestionsForm
 import { useLead } from "../../features/questions/hooks/useLead";
 import { useClientLeads } from "../../features/questions/hooks/useClientLeads";
 import type { LeadInput } from "../../features/questions/services/leads.service";
+import { useAgent } from "../../features/agents/hooks/useAgent";
+import { ReviewForm } from "../../features/agents/components/ReviewForm";
 
 export const ClientDashboard = () => {
     const user = useAuthStore((state) => state.user);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [step, setStep] = useState(1);
     const [referralData, setReferralData] = useState<{ name: string; email: string; phone: string } | null>(null);
+    const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
     const { data: questions = [] } = useAgentQuestions(user?.agent?.id);
     const { mutate: createLead, isPending: isCreatingLead } = useLead();
     const { data: clientLeadsData, isLoading: isLoadingLeads } = useClientLeads();
-    const greenLeads = clientLeadsData?.data.filter(ref=> ref.status === "GREEN" ).length;
+    const { data: agentProfile } = useAgent(user?.agent?.agentCode || null);
 
+    const hasClientReview = agentProfile?.reviewsReceived?.some(
+        (review) => review.client?.name === user?.name
+    ) || false;
+
+console.log(hasClientReview);
+    const greenLeads = clientLeadsData?.data.filter(ref=> ref.status === "GREEN" ).length;
     const leads = clientLeadsData?.data || [];
     const sortedLeads = [
         ...leads.filter(l => l.status === 'GREEN'),
@@ -76,6 +85,19 @@ export const ClientDashboard = () => {
                     </button>
                 </div>
             </section>
+
+            {!hasClientReview && user?.agent && (
+                <section className="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-2xl shadow-sm border border-purple-200">
+                    <h3 className="text-xl font-bold text-gray-800 mb-2">Califica a tu Agente</h3>
+                    <p className="text-gray-600 mb-4">Comparte tu experiencia con {user.agent.name}</p>
+                    <button
+                        onClick={() => setIsReviewModalOpen(true)}
+                        className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full transition-all transform hover:scale-105"
+                    >
+                        Dejar Reseña
+                    </button>
+                </section>
+            )}
 
             <section className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                 <h3 className="text-xl font-bold text-gray-800 mb-6">Mis Referidos</h3>
@@ -143,6 +165,19 @@ export const ClientDashboard = () => {
                         referralData={referralData}
                         onSubmit={handleQuestionsSubmit}
                         isLoading={isCreatingLead}
+                    />
+                )}
+            </Modal>
+
+            <Modal
+                isOpen={isReviewModalOpen}
+                onClose={() => setIsReviewModalOpen(false)}
+                title="Deja tu Reseña"
+            >
+                {user?.agent?.id && (
+                    <ReviewForm
+                        agentId={user.agent.id}
+                        onSuccess={() => setIsReviewModalOpen(false)}
                     />
                 )}
             </Modal>

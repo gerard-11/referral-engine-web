@@ -133,3 +133,19 @@ export interface AdminUser {
     role: Role;
     createdAt: string;
 }
+
+export interface Review {
+    id: string;
+    agentId: string;
+    clientId: string;
+    rating: number;
+    content: string;
+    isVisible: boolean;
+    createdAt: string;
+}
+
+export interface CreateReviewRequest {
+    agentId: string;
+    rating: number;
+    content: string;
+}
