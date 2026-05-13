@@ -33,15 +33,15 @@ export const AgentDetailPage = () => {
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6 px-4 md:px-0">
 
-            <div className="flex items-start justify-between">
-                <div>
-                    <h2 className="text-3xl font-bold text-gray-900 capitalize">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                <div className="flex-1">
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 capitalize">
                         {agent.name}
                     </h2>
-                    <p className="text-gray-600 mt-1">{agent.email}</p>
-                    <div className="mt-3 flex items-center gap-3">
+                    <p className="text-gray-600 mt-1 text-sm md:text-base">{agent.email}</p>
+                    <div className="mt-3 flex flex-wrap items-center gap-3">
                         <span
                             className={`px-3 py-1 rounded-full text-sm font-semibold ${
                                 agent.isActive
@@ -61,7 +61,7 @@ export const AgentDetailPage = () => {
                 </div>
                 <button
                     onClick={() => navigate('/admin')}
-                    className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm md:text-base w-full md:w-auto"
                 >
                     ← Volver
                 </button>

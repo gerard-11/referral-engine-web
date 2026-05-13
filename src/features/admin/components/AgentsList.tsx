@@ -11,7 +11,7 @@ export const AgentsList = ({ agents }: AgentsListProps) => {
 
     return (
         <div className="bg-white rounded-lg shadow overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full text-sm md:text-base">
                 <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">

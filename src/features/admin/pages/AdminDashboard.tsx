@@ -36,20 +36,20 @@ export const AdminDashboard = () => {
     }
 
     return (
-        <div className="space-y-6">
-            <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-gray-900">Gestión de Agentes</h2>
-                <div className="flex gap-3">
+        <div className="space-y-4 md:space-y-6 px-4 md:px-0">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900">Gestión de Agentes</h2>
+                <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                     <button
                         onClick={handleCreateAgentCode}
                         disabled={isCreatingCode}
-                        className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium disabled:bg-gray-400 transition-colors"
+                        className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium disabled:bg-gray-400 transition-colors text-sm"
                     >
                         {isCreatingCode ? 'Generando...' : '+ Generar Código'}
                     </button>
                     <button
                         onClick={() => setShowCreateAdminModal(true)}
-                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors text-sm"
                     >
                         + Crear Admin
                     </button>
@@ -57,16 +57,16 @@ export const AdminDashboard = () => {
             </div>
 
             {generatedCode && (
-                <div className="bg-green-50 border border-green-200 p-4 rounded-lg flex items-center justify-between">
+                <div className="bg-green-50 border border-green-200 p-4 rounded-lg flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div>
-                        <p className="text-green-800 font-semibold">Código generado</p>
-                        <code className="text-lg font-mono text-green-700">{generatedCode}</code>
+                        <p className="text-green-800 font-semibold text-sm">Código generado</p>
+                        <code className="text-base md:text-lg font-mono text-green-700">{generatedCode}</code>
                     </div>
                     <button
                         onClick={() => {
                             navigator.clipboard.writeText(generatedCode);
                         }}
-                        className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded"
+                        className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded w-full sm:w-auto"
                     >
                         Copiar
                     </button>

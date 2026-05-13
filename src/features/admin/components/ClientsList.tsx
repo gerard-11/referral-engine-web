@@ -32,14 +32,14 @@ export const ClientsList = ({ clients, leads = [] }: ClientsListProps) => {
 
     if (clients.length === 0) {
         return (
-            <div className="bg-white p-8 rounded-lg text-center text-gray-500">
+            <div className="bg-white p-6 md:p-8 rounded-lg text-center text-gray-500 text-sm md:text-base">
                 No hay clientes asignados
             </div>
         );
     }
 
     return (
-        <div className="space-y-3">
+        <div className="space-y-3 px-4 md:px-0">
             {clients.map((client) => {
                 const clientLeads = getClientLeads(client.id);
                 const isExpanded = expandedClientId === client.id;
@@ -55,24 +55,24 @@ export const ClientsList = ({ clients, leads = [] }: ClientsListProps) => {
                                     isExpanded ? null : client.id,
                                 )
                             }
-                            className="w-full text-left p-4 hover:bg-gray-50 transition-colors flex items-center justify-between"
+                            className="w-full text-left p-3 md:p-4 hover:bg-gray-50 transition-colors flex items-center justify-between gap-2 md:gap-3"
                         >
-                            <div className="flex-1">
-                                <h4 className="font-semibold text-gray-900">
+                            <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-sm md:text-base capitalize truncate">
                                     {client.name}
                                 </h4>
-                                <p className="text-sm text-gray-600">
+                                <p className="text-xs md:text-sm text-gray-600 truncate hidden md:block">
                                     {client.email}
                                 </p>
-                                <p className="text-xs text-gray-500 mt-1">
+                                <p className="text-xs text-gray-500 mt-1 hidden md:block">
                                     Creado:{' '}
                                     {new Date(client.createdAt).toLocaleDateString(
                                         'es-ES',
                                     )}
                                 </p>
                             </div>
-                            <div className="ml-4 flex items-center gap-3">
-                                <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
+                            <div className="flex items-center gap-2 flex-shrink-0">
+                                <span className="hidden md:inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
                                     {clientLeads.length} referidos
                                 </span>
                                 <button
@@ -82,11 +82,11 @@ export const ClientsList = ({ clients, leads = [] }: ClientsListProps) => {
                                             `/admin/agents/${agentId}/clients/${client.id}/leads/${encodeURIComponent(client.name)}`,
                                         );
                                     }}
-                                    className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold rounded transition-colors"
+                                    className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-xs md:text-sm font-semibold rounded transition-colors"
                                 >
                                     Ver todos
                                 </button>
-                                <div className="text-xl text-gray-400">
+                                <div className="text-lg md:text-xl text-gray-400">
                                     {isExpanded ? '▼' : '▶'}
                                 </div>
                             </div>
@@ -94,9 +94,9 @@ export const ClientsList = ({ clients, leads = [] }: ClientsListProps) => {
 
 
                         {isExpanded && (
-                            <div className="bg-gray-50 px-4 py-3 border-t border-gray-200">
+                            <div className="bg-gray-50 px-3 md:px-4 py-2 md:py-3 border-t border-gray-200">
                                 {clientLeads.length === 0 ? (
-                                    <p className="text-sm text-gray-500">
+                                    <p className="text-xs md:text-sm text-gray-500">
                                         Sin referidos
                                     </p>
                                 ) : (
@@ -104,22 +104,22 @@ export const ClientsList = ({ clients, leads = [] }: ClientsListProps) => {
                                         {clientLeads.map((lead) => (
                                             <div
                                                 key={lead.leadId}
-                                                className="flex items-center justify-between p-2 bg-white rounded border border-gray-200"
+                                                className="flex flex-col md:flex-row md:items-center md:justify-between p-2 md:p-3 bg-white rounded border border-gray-200 gap-1 md:gap-0"
                                             >
-                                                <div className="flex-1 min-w-0">
-                                                    <p className="font-medium text-sm text-gray-900 truncate">
+                                                <div className="flex-1 min-w-0 order-first">
+                                                    <p className="font-medium text-sm text-gray-900">
                                                         {lead.name}
                                                     </p>
-                                                    <p className="text-xs text-gray-600 truncate">
+                                                    <p className="text-xs text-gray-600">
                                                         {lead.email}
                                                     </p>
                                                 </div>
-                                                <div className="ml-3 flex items-center gap-2">
-                                                    <span className="text-xs font-semibold text-gray-700">
+                                                <div className="flex items-center gap-2 md:ml-3 order-last md:order-none flex-wrap">
+                                                    <span className="text-xs font-semibold text-gray-700 whitespace-nowrap">
                                                         Score: {lead.score}
                                                     </span>
                                                     <span
-                                                        className={`px-2 py-1 rounded text-xs font-bold ${getStatusColor(
+                                                        className={`px-2 py-1 rounded text-xs font-bold whitespace-nowrap ${getStatusColor(
                                                             lead.status,
                                                         )}`}
                                                     >
