@@ -64,19 +64,22 @@ export const useAuthStore = create<AuthState>((set) => ({
         try {
             set({ isLoading: true, error: null });
            await AuthService.register(data);
+
             const loginRes = await AuthService.login({
                 email: data.email,
                 password: data.password,
             });
-            const me= await AuthService.me();
-            const user= me.data;
+
             const { accessToken } = loginRes.data;
 
             localStorage.setItem('token', accessToken);
 
+            const me= await AuthService.me();
+
+
             set({
                 accessToken,
-                user,
+                user:me.data,
                 isLoading: false,
             });
         } catch (error: any) {
