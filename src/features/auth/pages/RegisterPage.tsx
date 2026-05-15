@@ -1,57 +1,57 @@
-import { useState } from 'react';
 import { useAuthStore } from '../store/auth.store.ts';
-import * as React from "react";
 import {useNavigate} from "react-router-dom";
-
-type UserRole = 'CLIENT' | 'AGENT';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { registerSchema, type RegisterInput } from '../schemas/register.schema.ts';
 
 export const RegisterPage = () => {
-    const navigate=useNavigate();
-    const { register, isLoading, error } = useAuthStore();
-    const [role, setRole] = useState<UserRole>('CLIENT');
-
-    const [form, setForm] = useState({
-        name: '',
-        email: '',
-        password: '',
-        referralCode: '',
-        agentCodeInput: '',
+    const navigate = useNavigate();
+    const { register: registerAuth, isLoading, error: authError } = useAuthStore();
+    
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        watch,
+        formState: { errors },
+    } = useForm<RegisterInput>({
+        resolver: zodResolver(registerSchema),
+        defaultValues: {
+            role: 'CLIENT',
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            referralCode: '',
+            agentCodeInput: '',
+        }
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value,
-        });
-    };
+    const role = watch('role');
 
-    const handleSubmit = async (e: React.SyntheticEvent) => {
-        e.preventDefault();
-        const payload = {
-            ...form,
-            role,
-        };
-        await register(payload);
+    const onSubmit = async (data: RegisterInput) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { confirmPassword, ...payload } = data;
+        await registerAuth(payload as any);
         navigate('/profile');
     };
 
     return (
         <div className="min-h-screen flex items-center justify-center ">
             <form
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit(onSubmit)}
                 className="p-8 rounded-2xl shadow-md w-full max-w-md"
             >
                 <h2 className="text-2xl font-bold mb-6 text-center">
                     Crear Cuenta
                 </h2>
 
-
                 <div className="mb-6">
                     <label className="block mb-2 font-medium text-gray-700">Tipo de Cuenta</label>
                     <div className="flex gap-4">
                         <button
                             type="button"
-                            onClick={() => setRole('CLIENT')}
+                            onClick={() => setValue('role', 'CLIENT')}
                             className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${
                                 role === 'CLIENT'
                                     ? 'bg-blue-600 text-white'
@@ -62,7 +62,7 @@ export const RegisterPage = () => {
                         </button>
                         <button
                             type="button"
-                            onClick={() => setRole('AGENT')}
+                            onClick={() => setValue('role', 'AGENT')}
                             className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${
                                 role === 'AGENT'
                                     ? 'bg-blue-600 text-white'
@@ -78,36 +78,40 @@ export const RegisterPage = () => {
                     <label className="block mb-1">Nombre</label>
                     <input
                         type="text"
-                        name="name"
-                        value={form.name}
-                        onChange={handleChange}
-                        className="w-full border rounded-lg px-3 py-2"
-                        required
+                        {...register('name')}
+                        className={`w-full border rounded-lg px-3 py-2 ${errors.name ? 'border-red-500' : ''}`}
                     />
+                    {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
                 </div>
 
                 <div className="mb-4">
                     <label className="block mb-1">Email</label>
                     <input
                         type="email"
-                        name="email"
-                        value={form.email}
-                        onChange={handleChange}
-                        className="w-full border rounded-lg px-3 py-2"
-                        required
+                        {...register('email')}
+                        className={`w-full border rounded-lg px-3 py-2 ${errors.email ? 'border-red-500' : ''}`}
                     />
+                    {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
                 </div>
 
                 <div className="mb-4">
-                    <label className="block mb-1">Password</label>
+                    <label className="block mb-1">Contraseña</label>
                     <input
                         type="password"
-                        name="password"
-                        value={form.password}
-                        onChange={handleChange}
-                        className="w-full border rounded-lg px-3 py-2"
-                        required
+                        {...register('password')}
+                        className={`w-full border rounded-lg px-3 py-2 ${errors.password ? 'border-red-500' : ''}`}
                     />
+                    {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+                </div>
+
+                <div className="mb-4">
+                    <label className="block mb-1">Confirmar Contraseña</label>
+                    <input
+                        type="password"
+                        {...register('confirmPassword')}
+                        className={`w-full border rounded-lg px-3 py-2 ${errors.confirmPassword ? 'border-red-500' : ''}`}
+                    />
+                    {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>}
                 </div>
 
                 {role === 'CLIENT' && (
@@ -115,9 +119,7 @@ export const RegisterPage = () => {
                         <label className="block mb-1">Código de Referido </label>
                         <input
                             type="text"
-                            name="referralCode"
-                            value={form.referralCode}
-                            onChange={handleChange}
+                            {...register('referralCode')}
                             placeholder="Ingresa el código que te compartio tu agente"
                             className="w-full border rounded-lg px-3 py-2"
                         />
@@ -129,19 +131,17 @@ export const RegisterPage = () => {
                         <label className="block mb-1 font-medium text-gray-700">Código de Agente</label>
                         <input
                             type="text"
-                            name="agentCodeInput"
-                            value={form.agentCodeInput}
-                            onChange={handleChange}
+                            {...register('agentCodeInput')}
                             placeholder="Ej: FRNHBNRR"
-                            className="w-full border rounded-lg px-3 py-2 uppercase"
-                            required
+                            className={`w-full border rounded-lg px-3 py-2 uppercase ${errors.agentCodeInput ? 'border-red-500' : ''}`}
                         />
+                        {errors.agentCodeInput && <p className="text-red-500 text-xs mt-1">{errors.agentCodeInput.message}</p>}
                         <p className="text-xs text-gray-500 mt-1">Solicita este código a tu administrador</p>
                     </div>
                 )}
 
-                {error && (
-                    <p className="text-red-500 text-sm mb-4">{error}</p>
+                {authError && (
+                    <p className="text-red-500 text-sm mb-4">{authError}</p>
                 )}
 
                 <button
